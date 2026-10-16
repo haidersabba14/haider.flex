@@ -3,179 +3,516 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#090909">
-<title>HAIDER FLEX</title>
+<title>HAIDER FLEX | عالم الترفيه</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
-:root{--red:#e50914;--bg:#090909;--panel:#181818;--muted:#aaa}
+:root{--bg:#090909;--panel:#171717;--red:#e50914;--text:#fff;--muted:#aaa}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:white;font-family:Cairo,Arial,sans-serif}
-button,input{font:inherit}
-button{cursor:pointer}
-header{position:sticky;top:0;z-index:5;background:#090909ed;backdrop-filter:blur(12px);display:flex;align-items:center;gap:20px;padding:15px 5%;border-bottom:1px solid #252525}
-.logo{font-size:22px;font-weight:900;color:var(--red);white-space:nowrap}
-nav{display:flex;gap:15px;flex:1;overflow:auto}
-nav a{color:#ddd;text-decoration:none;white-space:nowrap;font-size:13px}
-input{background:#202020;color:white;border:1px solid #383838;border-radius:8px;padding:10px;width:220px;max-width:40vw}
-.hero{min-height:400px;padding:60px 6%;display:flex;align-items:center;background:linear-gradient(90deg,#090909,#090909bb 50%,#09090935),linear-gradient(0deg,#090909,transparent),url('https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=1600&q=80') center/cover}
-.hero div{max-width:580px}
-.hero small{color:#ff414b;font-weight:bold;letter-spacing:3px}
-h1{font-size:clamp(38px,6vw,64px);line-height:1.25;margin:15px 0}
-p{line-height:2;color:#ddd}
-.btn{border:0;border-radius:7px;padding:11px 17px;margin:4px;font-weight:bold}
-.red{background:var(--red);color:white}
-.gray{background:#333;color:white}
-main{padding:20px 5% 50px}
-section{margin-bottom:38px}
-h2{font-size:20px}
-.cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:15px}
-.card{background:var(--panel);border-radius:9px;overflow:hidden;cursor:pointer;transition:.2s}
-.card:hover{transform:translateY(-4px)}
-.poster{aspect-ratio:2/3;position:relative;background:#222}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Cairo,Arial,sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer;border:0;border-radius:9px;padding:10px 15px;font-weight:800}
+.primary{background:var(--red);color:white}
+.secondary{background:#333;color:white}
+.danger{background:#65151a;color:white}
+header{position:sticky;top:0;z-index:10;background:#090909ed;backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:12px 4%;gap:12px;border-bottom:1px solid #292929}
+.logo{font-size:25px;font-weight:900;color:var(--red);white-space:nowrap}
+nav{display:flex;gap:7px;flex-wrap:wrap}
+nav button{background:transparent;color:white;padding:8px}
+nav button:hover{background:#292929}
+.wrap{width:min(1200px,94%);margin:auto}
+.hero{margin:22px auto;border-radius:18px;min-height:270px;padding:35px;display:flex;align-items:end;background:linear-gradient(90deg,#090909 5%,#090909d9 48%,#e5091444),linear-gradient(135deg,#3a080b,#151515 55%,#4b1111);border:1px solid #333}
+.hero h1{font-size:clamp(28px,5vw,48px);margin:0}
+.hero p{color:#ddd;max-width:650px}
+.section{margin:30px auto}
+.section h2{font-size:22px}
+.searchbar{display:flex;gap:8px;margin:20px 0}
+input,select,textarea{background:#222;color:white;border:1px solid #444;border-radius:9px;padding:12px;width:100%;min-width:0}
+textarea{min-height:90px;resize:vertical}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:15px}
+.card{background:var(--panel);border:1px solid #292929;border-radius:12px;overflow:hidden}
+.poster{width:100%;aspect-ratio:2/3;background:linear-gradient(145deg,#38090c,#252525);display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;overflow:hidden;color:#fff;font-weight:900}
 .poster img{width:100%;height:100%;object-fit:cover}
-.rating{position:absolute;top:8px;right:8px;background:#000c;padding:3px 7px;border-radius:5px}
-.info{padding:10px}
-.title{font-size:13px;font-weight:bold;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.meta{font-size:11px;color:var(--muted);margin-top:5px}
-.tag{font-size:10px;color:#ff5961;display:inline-block;margin-top:5px}
-.empty{color:#aaa;padding:12px}
-footer{border-top:1px solid #222;padding:25px 5%;color:#999;font-size:12px}
-.modal{display:none;position:fixed;inset:0;background:#000d;z-index:10;align-items:center;justify-content:center;padding:15px}
-.modal.show{display:flex}
-.box{width:min(650px,100%);max-height:90vh;overflow:auto;background:#181818;border:1px solid #333;border-radius:12px}
-.cover{height:210px;background-size:cover;background-position:center;position:relative}
-.close{position:absolute;left:12px;top:12px;border:0;border-radius:50%;background:#000c;color:white;font-size:23px;width:38px;height:38px}
-.body{padding:20px}
-#toast{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#292929;padding:12px 20px;border-radius:8px;z-index:20}
-@media(max-width:850px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:600px){header{flex-wrap:wrap;gap:12px;padding:12px 4%}nav{order:3;flex-basis:100%}input{margin-right:auto;width:42%}.hero{min-height:350px;padding:35px 5%}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}main{padding:15px 4%}.title{font-size:12px}}
+.card-body{padding:10px}
+.card h3{font-size:15px;margin:0 0 5px}
+.small{font-size:12px;color:var(--muted)}
+.actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.actions button{font-size:12px;padding:7px 9px}
+.hidden{display:none!important}
+.panel{background:var(--panel);padding:20px;border:1px solid #333;border-radius:14px;margin:18px auto}
+.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.field label{display:block;font-size:13px;margin-bottom:5px;color:#ddd}
+.field.full{grid-column:1/-1}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.profile-grid,.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.profile,.plan{background:#222;border:1px solid #444;border-radius:13px;padding:18px;text-align:center}
+.avatar{font-size:42px}
+.price{font-size:28px;color:#ff454b;font-weight:900}
+.notice{color:#ffd1d1;background:#351316;padding:12px;border-radius:9px;font-size:13px}
+footer{margin-top:45px;padding:25px;text-align:center;color:#888;border-top:1px solid #292929}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#242424;border:1px solid #555;border-radius:10px;padding:12px 18px;z-index:99;display:none;max-width:90%;text-align:center}
+@media(max-width:650px){
+ header{flex-wrap:wrap}nav{width:100%;overflow:auto;flex-wrap:nowrap}
+ nav button{white-space:nowrap}.hero{padding:22px;min-height:230px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}
+}
 </style>
 </head>
 <body>
 <header>
   <div class="logo">HAIDER FLEX</div>
   <nav>
-    <a href="#home">الرئيسية</a>
-    <a href="#movies">الأفلام</a>
-    <a href="#series">المسلسلات</a>
-    <a href="#anime">الأنمي</a>
-    <a href="#favorites">❤️ مفضلتي</a>
-    <a href="#history">🕘 شاهدت</a>
+    <button onclick="showPage('home')">الرئيسية</button>
+    <button onclick="filterType('movie')">أفلام</button>
+    <button onclick="filterType('series')">مسلسلات</button>
+    <button onclick="filterType('anime')">أنمي</button>
+    <button onclick="showPage('favorites')">❤️ مفضلتي</button>
+    <button onclick="showPage('history')">🕘 مشاهداتي</button>
+    <button onclick="showPage('profiles')">👤 ملفي</button>
+    <button onclick="showPage('plans')">💎 الاشتراكات</button>
+    <button id="adminNav" class="hidden" onclick="showPage('admin')">⚙️ الإدارة</button>
+    <button id="authNav" onclick="showPage('auth')">دخول</button>
   </nav>
-  <input id="search" placeholder="ابحث عن محتوى..." aria-label="بحث">
 </header>
 
-<section class="hero" id="home">
-  <div>
-    <small>H A I D E R&nbsp; F L E X</small>
-    <h1>قصتك القادمة<br>تبدأ هنا</h1>
-    <p>اكتشف الأفلام والمسلسلات والأنمي في واجهة سينمائية واحدة.</p>
-    <button class="btn red" onclick="openItem(4)">▶️ اكتشف المميز</button>
-    <button class="btn gray" onclick="document.querySelector('#movies').scrollIntoView({behavior:'smooth'})">تصفح المكتبة</button>
-  </div>
-</section>
-
-<main>
-  <section id="results" style="display:none">
-    <h2>نتائج البحث</h2><div class="cards" id="resultCards"></div>
+<main class="wrap">
+  <section id="homePage">
+    <div class="hero">
+      <div>
+        <p>مرحبًا بك في</p>
+        <h1>HAIDER FLEX</h1>
+        <p>عالم الأفلام والمسلسلات والأنمي في مكان واحد.</p>
+        <button class="primary" onclick="document.getElementById('library').scrollIntoView({behavior:'smooth'})">استكشف المكتبة 🎬</button>
+      </div>
+    </div>
+    <div class="section">
+      <h2>🔎 ابحث في المكتبة</h2>
+      <div class="searchbar">
+        <input id="search" placeholder="اكتب اسم الفيلم أو المسلسل أو التصنيف..." oninput="renderCatalog()">
+        <button class="secondary" onclick="document.getElementById('search').value='';renderCatalog()">مسح</button>
+      </div>
+      <div class="row">
+        <select id="typeFilter" onchange="renderCatalog()" style="max-width:200px">
+          <option value="all">كل الأنواع</option>
+          <option value="movie">أفلام</option>
+          <option value="series">مسلسلات</option>
+          <option value="anime">أنمي</option>
+        </select>
+        <select id="ageFilter" onchange="renderCatalog()" style="max-width:200px">
+          <option value="all">كل التصنيفات العمرية</option>
+          <option value="0">للجميع</option>
+          <option value="7">+7</option>
+          <option value="13">+13</option>
+          <option value="16">+16</option>
+          <option value="18">+18</option>
+        </select>
+      </div>
+    </div>
+    <div class="section" id="library">
+      <h2>🎬 مكتبة المحتوى</h2>
+      <div id="catalog" class="grid"></div>
+    </div>
   </section>
-  <section id="movies"><h2>🎬 الأفلام</h2><div class="cards" id="movieCards"></div></section>
-  <section id="series"><h2>📺 المسلسلات</h2><div class="cards" id="seriesCards"></div></section>
-  <section id="anime"><h2>⚡ الأنمي</h2><div class="cards" id="animeCards"></div></section>
-  <section id="favorites"><h2>❤️ مفضلتي</h2><div class="cards" id="favoriteCards"></div></section>
-  <section id="history"><h2>🕘 شاهدت مؤخرًا</h2><div class="cards" id="historyCards"></div></section>
+
+  <section id="authPage" class="panel hidden">
+    <h2>👤 الحساب</h2>
+    <p class="small">هذه نسخة تجريبية تحفظ الحسابات على هذا الجهاز فقط.</p>
+    <div class="formgrid">
+      <div class="field"><label>البريد الإلكتروني</label><input id="authEmail" type="email" placeholder="name@example.com"></div>
+      <div class="field"><label>كلمة مرور تجريبية</label><input id="authPassword" type="password" placeholder="كلمة المرور"></div>
+      <div class="field full row">
+        <button class="primary" onclick="registerUser()">إنشاء حساب</button>
+        <button class="secondary" onclick="loginUser()">تسجيل الدخول</button>
+        <button class="secondary" onclick="logout()">تسجيل الخروج</button>
+      </div>
+    </div>
+    <p id="authStatus" class="small"></p>
+    <div class="notice">لا تستخدم كلمة مرور بريدك الحقيقي هنا. هذا النموذج ليس نظام مصادقة آمنًا.</div>
+  </section>
+
+  <section id="profilesPage" class="panel hidden">
+    <h2>🎭 الملفات الشخصية</h2>
+    <p id="profileInfo" class="small"></p>
+    <div id="profileList" class="profile-grid"></div>
+    <hr style="border-color:#333;margin:20px 0">
+    <h3>إضافة ملف شخصي</h3>
+    <div class="formgrid">
+      <div class="field"><label>اسم الملف</label><input id="profileName" maxlength="24" placeholder="مثلاً: حيدر"></div>
+      <div class="field"><label>الصورة الرمزية</label>
+        <select id="profileAvatar"><option>😀</option><option>😎</option><option>🦊</option><option>🐼</option><option>🦁</option><option>🐱</option><option>🚀</option><option>⚽</option></select>
+      </div>
+      <div class="field full"><label><input id="profileKids" type="checkbox" style="width:auto"> ملف أطفال (إظهار المحتوى المناسب للجميع و+7 فقط)</label></div>
+      <div class="field full"><button class="primary" onclick="addProfile()">إضافة الملف</button></div>
+    </div>
+  </section>
+
+  <section id="favoritesPage" class="panel hidden">
+    <h2>❤️ المفضلة</h2><div id="favoritesGrid" class="grid"></div>
+  </section>
+
+  <section id="historyPage" class="panel hidden">
+    <h2>🕘 سجل المشاهدة</h2><div id="historyGrid" class="grid"></div>
+  </section>
+
+  <section id="plansPage" class="panel hidden">
+    <h2>💎 خطط الاشتراك</h2>
+    <p class="small">اختر الخطة التي تناسبك. اختيار الخطة هنا تجريبي ولا ينفّذ دفعًا.</p>
+    <div class="plans">
+      <div class="plan"><h3>شهري</h3><div class="price">5 د.ب</div><p>لمدة شهر</p><button class="primary" onclick="choosePlan('شهري',5,1)">اختيار الخطة</button></div>
+      <div class="plan"><h3>3 أشهر</h3><div class="price">15 د.ب</div><p>لمدة ثلاثة أشهر</p><button class="primary" onclick="choosePlan('3 أشهر',15,3)">اختيار الخطة</button></div>
+      <div class="plan"><h3>سنوي</h3><div class="price">20 د.ب</div><p>لمدة 12 شهرًا</p><button class="primary" onclick="choosePlan('سنوي',20,12)">اختيار الخطة</button></div>
+    </div>
+    <div id="planStatus" class="panel">لم يتم اختيار خطة.</div>
+    <div class="notice">لا يوجد تحصيل أموال أو تفعيل اشتراك حقيقي في هذه النسخة. يلزم ربط بوابة دفع وخادم للتحقق من الاشتراكات.</div>
+  </section>
+
+  <section id="adminPage" class="panel hidden">
+    <h2>⚙️ لوحة إدارة المحتوى</h2>
+    <div class="notice">وضع تجريبي فقط: فحص الإيميل داخل المتصفح لا يحمي الموقع من المتطفلين. لا تضع كلمة مرور بريدك أو مفاتيح سرية هنا.</div>
+    <p class="small">حساب الإدارة المحدد: <b id="adminEmailText"></b></p>
+    <h3 id="editorTitle">إضافة محتوى جديد</h3>
+    <div class="formgrid">
+      <div class="field"><label>العنوان</label><input id="itemTitle" placeholder="اسم الفيلم أو المسلسل"></div>
+      <div class="field"><label>النوع</label><select id="itemType"><option value="movie">فيلم</option><option value="series">مسلسل</option><option value="anime">أنمي</option></select></div>
+      <div class="field"><label>السنة</label><input id="itemYear" type="number" placeholder="2026"></div>
+      <div class="field"><label>التصنيف</label><input id="itemGenre" placeholder="أكشن، كوميديا..."></div>
+      <div class="field"><label>التصنيف العمري</label><select id="itemAge"><option value="0">للجميع</option><option value="7">+7</option><option value="13">+13</option><option value="16">+16</option><option value="18">+18</option></select></div>
+      <div class="field"><label>رابط صورة الغلاف</label><input id="itemPoster" type="url" placeholder="https://..."></div>
+      <div class="field full"><label>الوصف</label><textarea id="itemDescription" placeholder="اكتب وصف المحتوى"></textarea></div>
+      <div class="field full"><label>رابط فيديو تملك حق نشره أو استخدامه</label><input id="itemVideo" type="url" placeholder="https://...mp4"></div>
+      <div class="field full row">
+        <button class="primary" onclick="saveItem()">حفظ المحتوى</button>
+        <button class="secondary" onclick="clearEditor()">إلغاء التعديل</button>
+      </div>
+    </div>
+    <h3>إدارة المكتبة</h3><div id="adminCatalog" class="grid"></div>
+  </section>
 </main>
 
 <footer>
-  <b style="color:#e50914">HAIDER FLEX</b><br>
-  بدون حسابات أو تسجيل دخول أو اشتراكات أو دفع.<br>
-  المفضلة وسجل المشاهدة محفوظان محليًا على هذا الجهاز.
+  <div class="logo">HAIDER FLEX</div>
+  <p>واجهة تجريبية للترفيه — احرص على استخدام محتوى تملك حقوقه.</p>
+  <p class="small">الحسابات والمفضلة وسجل المشاهدة محفوظة محليًا على هذا الجهاز.</p>
 </footer>
-
-<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
- <div class="box">
-  <div class="cover" id="cover"><button class="close" onclick="closeModal()">×</button></div>
-  <div class="body">
-   <h2 id="detailTitle"></h2>
-   <div class="meta" id="detailMeta"></div>
-   <p id="detailDesc"></p>
-   <button class="btn red" onclick="playDemo()">▶️ تشغيل</button>
-   <button class="btn gray" id="favButton" onclick="toggleFavorite()">♡ أضف للمفضلة</button>
-   <div id="player" style="display:none;background:#000;padding:20px;border-radius:8px;margin-top:15px;text-align:center">
-    <p>مشغل الفيديو</p>
-    <video id="video" controls playsinline style="width:100%;max-height:50vh"></video>
-    <p style="font-size:12px;color:#aaa">أضف رابط فيديو مرخّص في بيانات المحتوى لتفعيل المشاهدة.</p>
-   </div>
-  </div>
- </div>
-</div>
 <div id="toast"></div>
 
 <script>
-const catalog=[
-{id:1,title:"رحلة إلى المجهول",year:2025,type:"movie",genre:"مغامرات",rating:8.2,lang:"عربي",desc:"رحلة مليئة بالأسرار والاكتشافات.",img:"https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=600&q=80",video:""},
-{id:2,title:"عالم الغموض",year:2024,type:"movie",genre:"غموض",rating:8.5,lang:"إنجليزي",desc:"أحداث مترابطة وأسرار تحتاج إلى حل.",img:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80",video:""},
-{id:3,title:"آخر محطة",year:2025,type:"series",genre:"دراما",rating:8.7,lang:"عربي",desc:"شخصيات مختلفة تجمعها رحلة متغيرة.",img:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=600&q=80",video:""},
-{id:4,title:"ما وراء النجوم",year:2026,type:"movie",genre:"خيال علمي",rating:9.0,lang:"إنجليزي",desc:"مغامرة خيالية في عالم واسع من النجوم.",img:"https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=600&q=80",video:""},
-{id:5,title:"ملفات سرية",year:2024,type:"series",genre:"تحقيق",rating:8.1,lang:"إنجليزي",desc:"قضايا وأدلة تقود إلى اكتشافات غير متوقعة.",img:"https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80",video:""},
-{id:6,title:"مدينة الأبطال",year:2025,type:"anime",genre:"أنمي",rating:9.1,lang:"ياباني",desc:"قصة خيالية عن الصداقة والشجاعة.",img:"https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80",video:""},
-{id:7,title:"المحيط الأزرق",year:2023,type:"movie",genre:"وثائقي",rating:8.4,lang:"إنجليزي",desc:"اكتشف عجائب الطبيعة وأعماق المحيط.",img:"https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=600&q=80",video:""},
-{id:8,title:"أسرار الليل",year:2025,type:"series",genre:"تشويق",rating:8.6,lang:"عربي",desc:"كل ليلة تحمل دليلًا جديدًا.",img:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=600&q=80",video:""},
-{id:9,title:"مملكة الخيال",year:2024,type:"anime",genre:"فانتازيا",rating:8.9,lang:"ياباني",desc:"مملكة بعيدة وأسرار تنتظر الاكتشاف.",img:"https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80",video:""},
-{id:10,title:"الطريق الطويل",year:2023,type:"movie",genre:"دراما",rating:7.9,lang:"إنجليزي",desc:"قصة عن الأمل والتغيير والبدايات الجديدة.",img:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80",video:""}
+const ADMIN_EMAIL = "haider.sabba@icloud.com";
+const KEYS = {
+  users:"hf_demo_users_v1",
+  current:"hf_demo_current_v1",
+  catalog:"hf_demo_catalog_v1",
+  plans:"hf_demo_plans_v1"
+};
+let editingId = null;
+
+const starterItems = [
+ {id:"hf1",title:"رحلة الغموض",type:"movie",year:2025,genre:"غموض",age:13,description:"فيلم تجريبي عن لغز يحتاج إلى حل.",poster:"",video:""},
+ {id:"hf2",title:"مدينة المستقبل",type:"series",year:2025,genre:"خيال علمي",age:7,description:"مسلسل تجريبي في مدينة متطورة.",poster:"",video:""},
+ {id:"hf3",title:"مغامرات الأبطال",type:"anime",year:2024,genre:"مغامرات",age:7,description:"أنمي تجريبي مليء بالمغامرات.",poster:"",video:""},
+ {id:"hf4",title:"الليلة الأخيرة",type:"movie",year:2024,genre:"إثارة",age:16,description:"قصة تشويق خيالية.",poster:"",video:""},
+ {id:"hf5",title:"أصدقاء الحي",type:"series",year:2023,genre:"كوميديا",age:0,description:"مواقف يومية خفيفة.",poster:"",video:""},
+ {id:"hf6",title:"حراس المجرة",type:"anime",year:2025,genre:"خيال",age:13,description:"مغامرة خيالية بين النجوم.",poster:"",video:""},
+ {id:"hf7",title:"الطريق الطويل",type:"movie",year:2022,genre:"دراما",age:13,description:"رحلة لاكتشاف الذات.",poster:"",video:""},
+ {id:"hf8",title:"أسرار المدرسة",type:"series",year:2024,genre:"دراما",age:7,description:"حكايات من الحياة المدرسية.",poster:"",video:""},
+ {id:"hf9",title:"الروبوت الصغير",type:"anime",year:2023,genre:"عائلي",age:0,description:"مغامرات روبوت لطيف.",poster:"",video:""},
+ {id:"hf10",title:"الملف المفقود",type:"movie",year:2025,genre:"تحقيق",age:16,description:"قضية خيالية مليئة بالألغاز.",poster:"",video:""}
 ];
 
-function read(key){try{return JSON.parse(localStorage.getItem(key))||[]}catch{return[]}}
-const favorites=read("haider_flex_favorites");
-const history=read("haider_flex_history");
-let current=null;
-
-function save(){localStorage.setItem("haider_flex_favorites",JSON.stringify(favorites));localStorage.setItem("haider_flex_history",JSON.stringify(history))}
-function typeName(t){return {movie:"فيلم",series:"مسلسل",anime:"أنمي"}[t]||t}
-function card(x){return `<article class="card" onclick="openItem(${x.id})"><div class="poster"><img loading="lazy" src="${x.img}" alt="${x.title}" style="width:100%;height:100%;object-fit:cover"><span class="rating">★ ${x.rating}</span></div><div class="info"><div class="title">${x.title}</div><div class="meta">${x.year} · ${typeName(x.type)}</div><span class="tag">${x.genre}</span></div></article>`}
-function render(id,list){document.getElementById(id).innerHTML=list.length?list.map(card).join(""):'<div class="empty">لا توجد عناوين هنا حاليًا.</div>'}
-function renderAll(){
- render("movieCards",catalog.filter(x=>x.type==="movie"));
- render("seriesCards",catalog.filter(x=>x.type==="series"));
- render("animeCards",catalog.filter(x=>x.type==="anime"));
- render("favoriteCards",catalog.filter(x=>favorites.includes(x.id)));
- render("historyCards",history.map(id=>catalog.find(x=>x.id===id)).filter(Boolean).reverse());
+function getCatalog(){
+ try{
+  const data=JSON.parse(localStorage.getItem(KEYS.catalog));
+  return Array.isArray(data)?data:starterItems.slice();
+ }catch{return starterItems.slice();}
 }
-function openItem(id){
- current=catalog.find(x=>x.id===id);if(!current)return;
- const i=history.indexOf(id);if(i>=0)history.splice(i,1);history.push(id);save();renderAll();
- document.getElementById("cover").style.backgroundImage=`linear-gradient(0deg,#181818,transparent),url("${current.img}")`;
- document.getElementById("detailTitle").textContent=current.title;
- document.getElementById("detailMeta").textContent=`${current.year} · ★ ${current.rating} · ${current.genre} · ${current.lang}`;
- document.getElementById("detailDesc").textContent=current.desc;
- document.getElementById("favButton").textContent=favorites.includes(id)?"♥️ إزالة من المفضلة":"♡ أضف للمفضلة";
- document.getElementById("player").style.display="none";
- document.getElementById("video").pause();
- document.getElementById("modal").classList.add("show");
+function setCatalog(items){localStorage.setItem(KEYS.catalog,JSON.stringify(items))}
+function getUsers(){
+ try{return JSON.parse(localStorage.getItem(KEYS.users))||[]}
+ catch{return []}
 }
-function closeModal(){document.getElementById("video").pause();document.getElementById("modal").classList.remove("show")}
-function toggleFavorite(){
- if(!current)return;
- const i=favorites.indexOf(current.id);
- if(i>=0)favorites.splice(i,1);else favorites.push(current.id);
- save();renderAll();
- document.getElementById("favButton").textContent=favorites.includes(current.id)?"♥️ إزالة من المفضلة":"♡ أضف للمفضلة";
- toast(i>=0?"تمت الإزالة من المفضلة":"تمت الإضافة للمفضلة");
+function setUsers(users){localStorage.setItem(KEYS.users,JSON.stringify(users))}
+function currentUser(){
+ const email=localStorage.getItem(KEYS.current);
+ return getUsers().find(u=>u.email===email)||null;
 }
-function playDemo(){
- document.getElementById("player").style.display="block";
- const video=document.getElementById("video");
- if(current&&current.video){video.src=current.video;video.play().catch(()=>toast("اضغط تشغيل داخل الفيديو."))}
- else toast("هذا العنوان تجريبي؛ أضف رابط فيديو مرخّصًا لتشغيله.");
+function currentProfile(){
+ const u=currentUser();
+ return u?.profiles?.find(p=>p.id===u.activeProfile)||u?.profiles?.[0]||null;
 }
-function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.style.display="block";setTimeout(()=>t.style.display="none",2300)}
-document.getElementById("search").addEventListener("input",e=>{
- const q=e.target.value.trim().toLowerCase(),sec=document.getElementById("results");
- sec.style.display=q?"block":"none";
- if(q)render("resultCards",catalog.filter(x=>[x.title,x.genre,x.year,x.lang,typeName(x.type)].some(v=>String(v).toLowerCase().includes(q))));
-});
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
-renderAll();
+function saveCurrentUser(updated){
+ const users=getUsers();
+ const index=users.findIndex(u=>u.email===updated.email);
+ if(index>=0){users[index]=updated;setUsers(users)}
+}
+function toast(message){
+ const el=document.getElementById("toast");
+ el.textContent=message;el.style.display="block";
+ clearTimeout(window.toastTimer);
+ window.toastTimer=setTimeout(()=>el.style.display="none",2600);
+}
+function escapeHTML(s){
+ return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function isAdmin(){
+ return currentUser()?.email===ADMIN_EMAIL;
+}
+function updateHeader(){
+ const u=currentUser();
+ document.getElementById("authNav").textContent=u?"الحساب":"دخول";
+ document.getElementById("adminNav").classList.toggle("hidden",!isAdmin());
+ document.getElementById("adminEmailText").textContent=ADMIN_EMAIL;
+}
+function showPage(name){
+ if(name==="admin"&&!isAdmin()){
+  toast("سجّل الدخول باستخدام حساب الإدارة المحدد.");
+  showPage("auth");return;
+ }
+ document.querySelectorAll("main>section").forEach(el=>el.classList.add("hidden"));
+ const page=document.getElementById(name+"Page");
+ if(page)page.classList.remove("hidden");
+ if(name==="home")renderCatalog();
+ if(name==="favorites")renderPersonal("favoritesGrid","favorites");
+ if(name==="history")renderPersonal("historyGrid","history");
+ if(name==="profiles")renderProfiles();
+ if(name==="admin")renderAdminCatalog();
+ updateHeader();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+function filterType(type){
+ document.getElementById("typeFilter").value=type;
+ showPage("home");
+ renderCatalog();
+}
+function registerUser(){
+ const email=document.getElementById("authEmail").value.trim().toLowerCase();
+ const password=document.getElementById("authPassword").value;
+ if(!email||!email.includes("@")||password.length<6){
+  toast("أدخل بريدًا صحيحًا وكلمة مرور تجريبية من 6 أحرف على الأقل.");return;
+ }
+ const users=getUsers();
+ if(users.some(u=>u.email===email)){toast("الحساب موجود بالفعل. سجّل الدخول.");return;}
+ const user={email,password,profiles:[makeProfile("الرئيسي","😀",false)],activeProfile:null};
+ user.activeProfile=user.profiles[0].id;
+ users.push(user);setUsers(users);
+ localStorage.setItem(KEYS.current,email);
+ document.getElementById("authStatus").textContent="تم إنشاء حساب تجريبي على هذا الجهاز.";
+ updateHeader();toast("تم إنشاء الحساب التجريبي.");showPage("profiles");
+}
+function loginUser(){
+ const email=document.getElementById("authEmail").value.trim().toLowerCase();
+ const password=document.getElementById("authPassword").value;
+ const user=getUsers().find(u=>u.email===email&&u.password===password);
+ if(!user){toast("بيانات الحساب التجريبي غير صحيحة.");return;}
+ localStorage.setItem(KEYS.current,email);
+ document.getElementById("authStatus").textContent="تم تسجيل الدخول في هذه النسخة التجريبية.";
+ updateHeader();toast("تم تسجيل الدخول.");showPage("profiles");
+}
+function logout(){
+ localStorage.removeItem(KEYS.current);
+ updateHeader();toast("تم تسجيل الخروج.");showPage("auth");
+}
+function makeProfile(name,avatar,kids){
+ return {id:"p"+Date.now()+Math.random().toString(16).slice(2,6),name,avatar,kids,
+ favorites:[],history:[]};
+}
+function addProfile(){
+ const user=currentUser();
+ if(!user){toast("أنشئ حسابًا تجريبيًا أو سجّل الدخول أولًا.");showPage("auth");return;}
+ if(user.profiles.length>=5){toast("الحد الأقصى 5 ملفات شخصية.");return;}
+ const name=document.getElementById("profileName").value.trim();
+ if(!name){toast("اكتب اسم الملف الشخصي.");return;}
+ user.profiles.push(makeProfile(name,document.getElementById("profileAvatar").value,document.getElementById("profileKids").checked));
+ saveCurrentUser(user);
+ document.getElementById("profileName").value="";
+ document.getElementById("profileKids").checked=false;
+ renderProfiles();toast("تمت إضافة الملف الشخصي.");
+}
+function renderProfiles(){
+ const user=currentUser(),list=document.getElementById("profileList");
+ document.getElementById("profileInfo").textContent=user?
+ `الحساب: ${user.email} — الملفات: ${user.profiles.length}/5`:
+ "سجّل الدخول لإنشاء ملفات شخصية متعددة.";
+ list.innerHTML="";
+ if(!user)return;
+ user.profiles.forEach(p=>{
+  const div=document.createElement("div");div.className="profile";
+  div.innerHTML=`<div class="avatar">${escapeHTML(p.avatar)}</div>
+  <h3>${escapeHTML(p.name)}</h3>
+  <p class="small">${p.kids?"ملف أطفال":"ملف عادي"} ${p.id===user.activeProfile?" • نشط":""}</p>
+  <button class="primary">اختيار الملف</button>`;
+  div.querySelector("button").onclick=()=>{
+   user.activeProfile=p.id;saveCurrentUser(user);renderProfiles();toast("تم اختيار "+p.name);renderCatalog();
+  };
+  list.appendChild(div);
+ });
+}
+function activeData(){
+ const user=currentUser();
+ if(!user)return null;
+ return user.profiles.find(p=>p.id===user.activeProfile)||user.profiles[0]||null;
+}
+function posterMarkup(item){
+ if(item.poster){
+  return `<img src="${escapeHTML(item.poster)}" alt="${escapeHTML(item.title)}" onerror="this.remove()">`;
+ }
+ return `<span>${escapeHTML(item.title)}</span>`;
+}
+function makeCard(item,withAdmin=false){
+ const card=document.createElement("article");card.className="card";
+ const typeName={movie:"فيلم",series:"مسلسل",anime:"أنمي"}[item.type]||"محتوى";
+ card.innerHTML=`<div class="poster">${posterMarkup(item)}</div>
+ <div class="card-body"><h3>${escapeHTML(item.title)}</h3>
+ <div class="small">${escapeHTML(item.year||"")} • ${typeName}</div>
+ <div class="small">${escapeHTML(item.genre||"")} • ${item.age===0?"للجميع":"+"+item.age}</div>
+ <div class="actions">
+ <button class="primary" data-act="details">التفاصيل</button>
+ <button class="secondary" data-act="fav">♡</button>
+ ${withAdmin?'<button class="secondary" data-act="edit">تعديل</button><button class="danger" data-act="delete">حذف</button>':""}
+ </div></div>`;
+ card.querySelector('[data-act="details"]').onclick=()=>openDetails(item.id);
+ card.querySelector('[data-act="fav"]').onclick=()=>toggleFavorite(item.id);
+ if(withAdmin){
+  card.querySelector('[data-act="edit"]').onclick=()=>editItem(item.id);
+  card.querySelector('[data-act="delete"]').onclick=()=>deleteItem(item.id);
+ }
+ return card;
+}
+function renderCatalog(){
+ const grid=document.getElementById("catalog");if(!grid)return;
+ grid.innerHTML="";
+ const q=document.getElementById("search").value.trim().toLowerCase();
+ const type=document.getElementById("typeFilter").value;
+ const age=document.getElementById("ageFilter").value;
+ const profile=activeData();
+ const items=getCatalog().filter(i=>{
+  const searchable=[i.title,i.genre,i.description,i.year].join(" ").toLowerCase();
+  if(q&&!searchable.includes(q))return false;
+  if(type!=="all"&&i.type!==type)return false;
+  if(age!=="all"&&String(i.age)!==age)return false;
+  if(profile?.kids&&Number(i.age)>7)return false;
+  return true;
+ });
+ if(!items.length){grid.innerHTML="<p>ما لقينا محتوى مطابق للبحث.</p>";return;}
+ items.forEach(i=>grid.appendChild(makeCard(i)));
+}
+function openDetails(id){
+ const item=getCatalog().find(i=>i.id===id);if(!item)return;
+ const profile=activeData();
+ if(profile?.kids&&Number(item.age)>7){toast("هذا المحتوى غير متاح في ملف الأطفال.");return;}
+ const message=`${item.title}\n${item.year||""} • ${item.genre||""}\nالتصنيف العمري: ${item.age===0?"للجميع":"+"+item.age}\n\n${item.description||"لا يوجد وصف."}`;
+ const overlay=document.createElement("div");
+ overlay.style.cssText="position:fixed;inset:0;background:#000d;z-index:50;display:grid;place-items:center;padding:18px";
+ overlay.innerHTML=`<div class="panel" style="width:min(650px,100%);max-height:90vh;overflow:auto">
+ <h2>${escapeHTML(item.title)}</h2><p class="small">${escapeHTML(item.year||"")} • ${escapeHTML(item.genre||"")}</p>
+ <p>${escapeHTML(item.description||"لا يوجد وصف.")}</p>
+ <p class="small">التصنيف العمري: ${item.age===0?"للجميع":"+"+item.age}</p>
+ <div id="videoArea"></div>
+ <div class="row" style="margin-top:15px"><button class="primary" id="playButton">▶️ تشغيل</button><button class="secondary" id="favButton">♡ المفضلة</button><button class="secondary" id="closeButton">إغلاق</button></div>
+ </div>`;
+ document.body.appendChild(overlay);
+ overlay.querySelector("#closeButton").onclick=()=>overlay.remove();
+ overlay.querySelector("#favButton").onclick=()=>toggleFavorite(id);
+ overlay.querySelector("#playButton").onclick=()=>{
+  const fresh=getCatalog().find(i=>i.id===id);
+  if(!fresh.video){toast("لا يوجد رابط فيديو لهذا المحتوى بعد.");return;}
+  const area=overlay.querySelector("#videoArea");
+  area.innerHTML="";
+  const video=document.createElement("video");video.controls=true;video.playsInline=true;video.style.width="100%";video.src=fresh.video;
+  area.appendChild(video);
+  video.play().catch(()=>toast("تعذر التشغيل. تحقق من رابط الفيديو."));
+  addHistory(id);
+ };
+}
+function toggleFavorite(id){
+ const user=currentUser(),profile=activeData();
+ if(!user||!profile){toast("سجّل الدخول واختر ملفًا شخصيًا أولًا.");showPage("auth");return;}
+ const index=profile.favorites.indexOf(id);
+ if(index>=0)profile.favorites.splice(index,1);else profile.favorites.unshift(id);
+ saveCurrentUser(user);toast(index>=0?"أُزيل من المفضلة":"أُضيف إلى المفضلة");
+ renderCatalog();
+}
+function addHistory(id){
+ const user=currentUser(),profile=activeData();
+ if(!user||!profile)return;
+ profile.history=profile.history.filter(x=>x!==id);
+ profile.history.unshift(id);profile.history=profile.history.slice(0,100);
+ saveCurrentUser(user);
+}
+function renderPersonal(containerId,kind){
+ const grid=document.getElementById(containerId);grid.innerHTML="";
+ const profile=activeData();
+ if(!currentUser()||!profile){grid.innerHTML="<p>سجّل الدخول واختر ملفًا شخصيًا أولًا.</p>";return;}
+ const ids=profile[kind]||[];
+ const catalog=getCatalog();
+ const items=ids.map(id=>catalog.find(i=>i.id===id)).filter(Boolean);
+ if(!items.length){grid.innerHTML="<p>لا يوجد محتوى هنا حتى الآن.</p>";return;}
+ items.forEach(i=>grid.appendChild(makeCard(i)));
+}
+function choosePlan(name,price,months){
+ const user=currentUser();
+ if(!user){toast("سجّل الدخول أولًا لاختيار الخطة.");showPage("auth");return;}
+ const plans=JSON.parse(localStorage.getItem(KEYS.plans)||"{}");
+ plans[user.email]={name,price,months,selectedAt:new Date().toISOString(),status:"تجريبي — غير مدفوع"};
+ localStorage.setItem(KEYS.plans,JSON.stringify(plans));
+ document.getElementById("planStatus").textContent=`اخترت خطة ${name} بقيمة ${price} د.ب. لم يتم الدفع أو تفعيل اشتراك حقيقي.`;
+ toast("تم تسجيل اختيار الخطة تجريبيًا.");
+}
+function clearEditor(){
+ editingId=null;
+ ["itemTitle","itemYear","itemGenre","itemPoster","itemDescription","itemVideo"].forEach(id=>document.getElementById(id).value="");
+ document.getElementById("itemType").value="movie";document.getElementById("itemAge").value="0";
+ document.getElementById("editorTitle").textContent="إضافة محتوى جديد";
+}
+function saveItem(){
+ if(!isAdmin()){toast("غير مسموح.");return;}
+ const title=document.getElementById("itemTitle").value.trim();
+ if(!title){toast("اكتب عنوان المحتوى.");return;}
+ const items=getCatalog();
+ const item={
+  id:editingId||("hf"+Date.now()),
+  title,type:document.getElementById("itemType").value,
+  year:Number(document.getElementById("itemYear").value)||new Date().getFullYear(),
+  genre:document.getElementById("itemGenre").value.trim(),
+  age:Number(document.getElementById("itemAge").value),
+  poster:document.getElementById("itemPoster").value.trim(),
+  description:document.getElementById("itemDescription").value.trim(),
+  video:document.getElementById("itemVideo").value.trim()
+ };
+ const index=items.findIndex(i=>i.id===editingId);
+ if(index>=0)items[index]=item;else items.unshift(item);
+ setCatalog(items);clearEditor();renderAdminCatalog();renderCatalog();toast("تم حفظ المحتوى.");
+}
+function editItem(id){
+ if(!isAdmin())return;
+ const i=getCatalog().find(x=>x.id===id);if(!i)return;
+ editingId=id;
+ document.getElementById("itemTitle").value=i.title;
+ document.getElementById("itemType").value=i.type;
+ document.getElementById("itemYear").value=i.year||"";
+ document.getElementById("itemGenre").value=i.genre||"";
+ document.getElementById("itemAge").value=String(i.age??0);
+ document.getElementById("itemPoster").value=i.poster||"";
+ document.getElementById("itemDescription").value=i.description||"";
+ document.getElementById("itemVideo").value=i.video||"";
+ document.getElementById("editorTitle").textContent="تعديل: "+i.title;
+ document.getElementById("itemTitle").scrollIntoView({behavior:"smooth",block:"center"});
+}
+function deleteItem(id){
+ if(!isAdmin())return;
+ const item=getCatalog().find(i=>i.id===id);
+ if(!item||!confirm("حذف "+item.title+"؟"))return;
+ setCatalog(getCatalog().filter(i=>i.id!==id));
+ renderAdminCatalog();renderCatalog();toast("تم حذف المحتوى.");
+}
+function renderAdminCatalog(){
+ const grid=document.getElementById("adminCatalog");if(!grid)return;
+ grid.innerHTML="";
+ getCatalog().forEach(i=>grid.appendChild(makeCard(i,true)));
+}
+(function init(){
+ if(!localStorage.getItem(KEYS.catalog))setCatalog(starterItems);
+ updateHeader();renderCatalog();
+})();
 </script>
 </body>
 </html>
