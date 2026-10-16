@@ -4,188 +4,233 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#090909">
-<title>HAIDER FLEX</title>
+<title>HAIDER FLEX | عالم الترفيه</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
+:root{--red:#e50914;--bg:#090909;--panel:#171717;--muted:#aaa}
 *{box-sizing:border-box}
-body{margin:0;background:#090909;color:#fff;font-family:Arial,sans-serif}
-header{background:#111;padding:18px 5%;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:2px solid #e50914}
-.logo{font-size:25px;font-weight:bold;color:#e50914}
-.logo span{color:white}
-input,select{padding:11px;border:1px solid #333;background:#202020;color:white;border-radius:8px;max-width:100%}
-button{border:0;border-radius:8px;padding:11px 15px;background:#e50914;color:white;font-weight:bold;cursor:pointer}
-.hero{padding:70px 7%;background:linear-gradient(90deg,#090909,#35070b);min-height:300px}
-.hero h1{font-size:clamp(32px,6vw,55px);margin:10px 0}
-.hero p{color:#ccc;line-height:1.8}
-.section{padding:25px 5%}
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
-.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:15px}
-.card{background:#171717;border:1px solid #292929;border-radius:10px;overflow:hidden;cursor:pointer}
-.poster{height:210px;display:grid;place-items:center;font-size:60px;background:linear-gradient(140deg,var(--a),#111)}
-.info{padding:12px}
-.info p{font-size:13px;color:#aaa}
-.rating{color:#ffd45c}
-.chips{display:flex;gap:8px;flex-wrap:wrap}
-.chips button{background:#252525}
-.chips button.active{background:#e50914}
-#details{display:none;position:fixed;inset:0;background:#000d;z-index:5;align-items:center;justify-content:center;padding:15px}
-.modal{background:#171717;border:1px solid #444;border-radius:14px;padding:25px;max-width:500px;width:100%}
-.modal p{line-height:1.8;color:#ccc}
-footer{padding:25px;text-align:center;color:#888;border-top:1px solid #292929}
-@media(max-width:1000px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:600px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.poster{height:170px}.hero{padding:45px 5%}}
+body{margin:0;background:var(--bg);color:#fff;font-family:Cairo,Arial,sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer}
+header{height:72px;position:sticky;top:0;z-index:10;background:#090909ed;backdrop-filter:blur(15px);display:flex;align-items:center;gap:22px;padding:0 5%;border-bottom:1px solid #222}
+.logo{font-size:23px;font-weight:900;color:var(--red);white-space:nowrap;letter-spacing:1px}
+nav{display:flex;gap:18px;flex:1}
+nav a{color:#ddd;text-decoration:none;font-size:13px}
+nav a:hover{color:var(--red)}
+.search{width:min(240px,35vw);background:#202020;border:1px solid #383838;color:white;border-radius:9px;padding:9px 12px;outline:none}
+.search:focus{border-color:var(--red)}
+.hero{min-height:450px;padding:70px 6%;display:flex;align-items:center;background:linear-gradient(90deg,#090909 0%,#090909d9 45%,#09090945),linear-gradient(0deg,#090909,transparent 40%),url('https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=1800&q=85') center/cover}
+.hero-content{max-width:600px}
+.eyebrow{color:#ff414b;font-weight:800;letter-spacing:2px}
+h1{font-size:clamp(38px,6vw,66px);line-height:1.2;margin:15px 0}
+.hero p{color:#ddd;max-width:480px;line-height:2}
+.btn{border:0;border-radius:7px;padding:11px 20px;font-weight:800;margin:6px 5px 0 0}
+.primary{background:var(--red);color:white}
+.secondary{background:#ffffff20;color:white;border:1px solid #ffffff30}
+main{padding:15px 5% 60px}
+.section{margin:28px 0 38px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+h2{font-size:21px;margin:0 0 15px}
+.section-head span{font-size:12px;color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+.card{background:var(--panel);border-radius:10px;overflow:hidden;cursor:pointer;transition:.2s;min-width:0}
+.card:hover{transform:translateY(-5px);box-shadow:0 8px 28px #0008}
+.poster{position:relative;aspect-ratio:2/3;background:#222;overflow:hidden}
+.poster img{width:100%;height:100%;object-fit:cover;display:block;transition:.3s}
+.card:hover img{transform:scale(1.04)}
+.rating{position:absolute;top:8px;right:8px;background:#090909d9;border-radius:5px;padding:3px 7px;font-size:11px}
+.card-info{padding:10px}
+.card-title{font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta{font-size:11px;color:var(--muted);margin-top:5px}
+.tag{display:inline-block;color:#ff5961;background:#e509141c;border-radius:4px;padding:2px 6px;margin-top:6px;font-size:10px}
+.empty{color:var(--muted);padding:20px 0}
+footer{padding:35px 5%;border-top:1px solid #222;color:#999;font-size:12px;line-height:2}
+footer strong{color:var(--red)}
+.modal{position:fixed;inset:0;background:#000d;z-index:30;display:none;align-items:center;justify-content:center;padding:15px}
+.modal.show{display:flex}
+.modal-box{background:#171717;border:1px solid #333;border-radius:14px;width:min(720px,100%);max-height:90vh;overflow:auto}
+.modal-top{height:230px;background-position:center;background-size:cover;position:relative}
+.close{position:absolute;top:12px;left:12px;border:0;border-radius:50%;width:38px;height:38px;background:#000b;color:white;font-size:22px}
+.modal-body{padding:22px}
+.modal-body p{color:#ccc;line-height:2}
+.player{background:#000;border-radius:10px;padding:30px 15px;text-align:center;margin-top:15px}
+.player video{width:100%;max-height:55vh;background:#000}
+.small{font-size:11px;color:#aaa;line-height:1.8}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#252525;border:1px solid #444;border-radius:8px;padding:10px 18px;display:none;z-index:60;font-size:13px}
+@media(max-width:900px){.cards{grid-template-columns:repeat(4,minmax(0,1fr))}nav{gap:10px}}
+@media(max-width:620px){header{height:auto;min-height:65px;flex-wrap:wrap;padding:12px 4%;gap:12px}nav{order:3;flex-basis:100%;overflow:auto;padding:3px 0 7px}.search{margin-right:auto;width:43%}.hero{min-height:380px;padding:45px 5%}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}main{padding:10px 4% 40px}h2{font-size:18px}}
 </style>
 </head>
 <body>
 <header>
-  <div class="logo">HAIDER <span>FLEX</span></div>
-  <input id="search" placeholder="ابحث عن فيلم أو مسلسل..." oninput="render()">
-  <button onclick="toggleHistory()">سجل المشاهدة</button>
+  <div class="logo">HAIDER FLEX</div>
+  <nav>
+    <a href="#home">الرئيسية</a>
+    <a href="#movies">الأفلام</a>
+    <a href="#series">المسلسلات</a>
+    <a href="#anime">الأنمي</a>
+    <a href="#favorites">مفضلتي</a>
+  </nav>
+  <input class="search" id="search" placeholder="ابحث عن عنوان..." aria-label="بحث">
 </header>
 
-<section class="hero">
-  <p style="color:#ff4545">YOUR ENTERTAINMENT WORLD</p>
-  <h1>عالمك السينمائي</h1>
-  <p>اكتشف الأفلام والمسلسلات والأنمي في واجهة واحدة.</p>
-  <button onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">▶️ استكشف المحتوى</button>
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="eyebrow">H A I D E R&nbsp; F L E X</div>
+    <h1>عالمك السينمائي<br>في مكان واحد</h1>
+    <p>اكتشف عوالم جديدة، تعرّف على قصص مميزة، وابنِ قائمة المشاهدة الخاصة بك.</p>
+    <button class="btn primary" onclick="openFeatured()">▶️ استكشف الآن</button>
+    <button class="btn secondary" onclick="scrollToSection('movies')">＋ تصفح المكتبة</button>
+  </div>
 </section>
 
-<section class="section" id="catalog">
-  <h2>اكتشف المحتوى</h2>
-  <div class="chips" id="chips">
-    <button class="active" onclick="setCategory('الكل',this)">الكل</button>
-    <button onclick="setCategory('أفلام',this)">أفلام</button>
-    <button onclick="setCategory('مسلسلات',this)">مسلسلات</button>
-    <button onclick="setCategory('أنمي',this)">أنمي</button>
-    <button onclick="setCategory('وثائقيات',this)">وثائقيات</button>
-    <button onclick="setCategory('المفضلة',this)">♥️ المفضلة</button>
-  </div>
-  <div class="filters">
-    <select id="genre" onchange="render()">
-      <option value="">كل الأنواع</option>
-      <option>أكشن</option><option>دراما</option>
-      <option>كوميديا</option><option>خيال علمي</option>
-    </select>
-    <select id="year" onchange="render()">
-      <option value="">كل السنوات</option>
-      <option>2025</option><option>2024</option>
-      <option>2023</option><option>2022</option>
-    </select>
-    <select id="rating" onchange="render()">
-      <option value="">كل التقييمات</option>
-      <option value="8">8+ نجوم</option>
-      <option value="7">7+ نجوم</option>
-    </select>
-  </div>
-  <div class="grid" id="grid"></div>
-</section>
-
-<section class="section" id="history" style="display:none">
-  <h2>سجل المشاهدة</h2>
-  <div id="historyList"></div>
-  <button onclick="clearHistory()">مسح السجل</button>
-</section>
-
-<div id="details" onclick="if(event.target===this)closeDetails()">
-  <div class="modal">
-    <button onclick="closeDetails()">✕ إغلاق</button>
-    <h2 id="detailTitle"></h2>
-    <p id="detailInfo"></p>
-    <p id="detailDesc"></p>
-    <button onclick="startWatching()">▶️ متابعة</button>
-    <button onclick="favorite()">♥️ المفضلة</button>
-    <p id="playerNote" style="font-size:12px">مصدر الفيديو غير مربوط بعد.</p>
-  </div>
-</div>
+<main>
+  <section class="section" id="continue">
+    <div class="section-head"><h2>▶️ تابع المشاهدة</h2><span>العناوين التي فتحتها</span></div>
+    <div class="cards" id="continueCards"></div>
+  </section>
+  <section class="section" id="movies">
+    <div class="section-head"><h2>🎬 أفلام مختارة</h2><span>اكتشف قصتك القادمة</span></div>
+    <div class="cards" id="movieCards"></div>
+  </section>
+  <section class="section" id="series">
+    <div class="section-head"><h2>📺 مسلسلات</h2><span>قصص تستحق المتابعة</span></div>
+    <div class="cards" id="seriesCards"></div>
+  </section>
+  <section class="section" id="anime">
+    <div class="section-head"><h2>⚡ الأنمي</h2><span>عوالم من الخيال</span></div>
+    <div class="cards" id="animeCards"></div>
+  </section>
+  <section class="section" id="favorites">
+    <div class="section-head"><h2>❤️ مفضلتي</h2><span>قائمتك الشخصية على هذا الجهاز</span></div>
+    <div class="cards" id="favoriteCards"></div>
+  </section>
+  <section class="section" id="results" style="display:none">
+    <div class="section-head"><h2>نتائج البحث</h2></div>
+    <div class="cards" id="resultCards"></div>
+  </section>
+</main>
 
 <footer>
-  HAIDER FLEX ©️ 2026<br>
-  منصة تجريبية — أضف المحتوى المرخّص الذي تملك حق عرضه.
+  <strong>HAIDER FLEX</strong><br>
+  منصتك الترفيهية بتصميم سينمائي.<br>
+  هذه نسخة تجريبية للواجهة، والملصقات والصور من مصادر خارجية.
+  حقوق عرض الأفلام والمسلسلات ومصادر الفيديو يجب أن تكون مرخّصة.
 </footer>
 
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <div class="modal-top" id="modalTop">
+      <button class="close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="eyebrow" id="modalType">HAIDER FLEX</div>
+      <h2 id="modalTitle"></h2>
+      <div class="meta" id="modalMeta"></div>
+      <p id="modalDesc"></p>
+      <button class="btn primary" id="playBtn">▶️ تشغيل تجريبي</button>
+      <button class="btn secondary" id="favBtn">♡ أضف للمفضلة</button>
+      <div class="player" id="player" style="display:none">
+        <p>منطقة تشغيل الفيديو</p>
+        <video id="video" controls playsinline></video>
+        <p class="small">أضف رابط فيديو تملك حق عرضه إلى بيانات المحتوى لتفعيل التشغيل.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="toast"></div>
+
 <script>
-const movies=[
-{id:1,title:"المدينة الأخيرة",type:"أفلام",genre:"أكشن",year:2025,rating:8.7,icon:"🌆",color:"#77121d",desc:"مغامرة سينمائية في مدينة مليئة بالأسرار."},
-{id:2,title:"ما وراء النجوم",type:"مسلسلات",genre:"خيال علمي",year:2024,rating:9.1,icon:"🚀",color:"#173c6a",desc:"رحلة خيالية إلى أطراف المجرة."},
-{id:3,title:"يوميات صغيرة",type:"أنمي",genre:"دراما",year:2023,rating:8.4,icon:"🌸",color:"#713a73",desc:"حكاية عن الصداقة واكتشاف الذات."},
-{id:4,title:"ملف مجهول",type:"أفلام",genre:"دراما",year:2024,rating:7.9,icon:"🕵️",color:"#444",desc:"لغز غامض يحتاج إلى حل."},
-{id:5,title:"ضحكة أخيرة",type:"مسلسلات",genre:"كوميديا",year:2022,rating:7.6,icon:"🎭",color:"#8b511a",desc:"مواقف يومية مليئة بالمفاجآت."},
-{id:6,title:"كوكب الماء",type:"وثائقيات",genre:"دراما",year:2025,rating:8.9,icon:"🌊",color:"#12677d",desc:"اكتشف عجائب عالم المحيطات."},
-{id:7,title:"المهمة صفر",type:"أفلام",genre:"أكشن",year:2023,rating:8.1,icon:"🧭",color:"#48633a",desc:"مهمة صعبة ومغامرة غير متوقعة."},
-{id:8,title:"ظل القمر",type:"مسلسلات",genre:"دراما",year:2023,rating:8.2,icon:"🌙",color:"#392d68",desc:"أسرار عائلية تنكشف مع الوقت."},
-{id:9,title:"الآلة الذكية",type:"أفلام",genre:"خيال علمي",year:2022,rating:7.8,icon:"🤖",color:"#1e5b60",desc:"قصة عن التكنولوجيا والمستقبل."},
-{id:10,title:"أبطال الغد",type:"أنمي",genre:"أكشن",year:2025,rating:8.6,icon:"⚡",color:"#9c2626",desc:"أصدقاء يتحدون لتحقيق حلمهم."}
+const items = [
+ {id:1,title:"رحلة إلى المجهول",year:2025,type:"movie",genre:"مغامرات",rating:"8.2",lang:"عربي",desc:"رحلة مليئة بالأسرار والاكتشافات، حيث تتغير كل التوقعات مع كل خطوة.",img:"https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=600&q=80"},
+ {id:2,title:"عالم الغموض",year:2024,type:"movie",genre:"غموض",rating:"8.5",lang:"إنجليزي",desc:"قصة غامضة وأحداث مترابطة تحتاج إلى الانتباه لكل تفصيل.",img:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80"},
+ {id:3,title:"آخر محطة",year:2025,type:"series",genre:"دراما",rating:"8.7",lang:"عربي",desc:"شخصيات مختلفة تجمعها رحلة مليئة بالقرارات والتغييرات.",img:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=600&q=80"},
+ {id:4,title:"ما وراء النجوم",year:2026,type:"movie",genre:"خيال علمي",rating:"9.0",lang:"إنجليزي",desc:"مغامرة خيالية في عالم واسع من النجوم والأسرار.",img:"https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=600&q=80"},
+ {id:5,title:"ملفات سرية",year:2024,type:"series",genre:"تحقيق",rating:"8.1",lang:"إنجليزي",desc:"قضايا مترابطة وأدلة تقود إلى اكتشافات غير متوقعة.",img:"https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80"},
+ {id:6,title:"مدينة الأبطال",year:2025,type:"anime",genre:"أنمي",rating:"9.1",lang:"ياباني",desc:"رحلة خيالية عن الصداقة والشجاعة وتجاوز التحديات.",img:"https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80"},
+ {id:7,title:"المحيط الأزرق",year:2023,type:"movie",genre:"وثائقي",rating:"8.4",lang:"إنجليزي",desc:"اكتشف عجائب الطبيعة والحياة في أعماق المحيط.",img:"https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=600&q=80"},
+ {id:8,title:"أسرار الليل",year:2025,type:"series",genre:"تشويق",rating:"8.6",lang:"عربي",desc:"كل ليلة تحمل معلومة جديدة تقرّب الأبطال من الحقيقة.",img:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=600&q=80"},
+ {id:9,title:"مملكة الخيال",year:2024,type:"anime",genre:"فانتازيا",rating:"8.9",lang:"ياباني",desc:"مملكة بعيدة تنتظر أبطالًا يكتشفون أسرارها.",img:"https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80"},
+ {id:10,title:"الطريق الطويل",year:2023,type:"movie",genre:"دراما",rating:"7.9",lang:"إنجليزي",desc:"قصة إنسانية عن الأمل والتغيير وبدايات جديدة.",img:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80"}
 ];
 
-let category="الكل",current=null;
-function get(key){try{return JSON.parse(localStorage.getItem(key))||[]}catch{return []}}
-function save(key,value){localStorage.setItem(key,JSON.stringify(value))}
-function setCategory(value,button){
- category=value;
- document.querySelectorAll("#chips button").forEach(b=>b.classList.remove("active"));
- button.classList.add("active");
- render();
+const state = {
+ favorites:load("hf_favorites",[]),
+ history:load("hf_history",[]),
+ current:null
+};
+function load(key,fallback){try{return JSON.parse(localStorage.getItem(key))||fallback}catch{return fallback}}
+function save(key,value){try{localStorage.setItem(key,JSON.stringify(value))}catch{}}
+function toast(message){
+ const el=document.getElementById("toast");
+ el.textContent=message;el.style.display="block";
+ clearTimeout(window.toastTimer);
+ window.toastTimer=setTimeout(()=>el.style.display="none",2300);
 }
-function render(){
- const q=document.getElementById("search").value.toLowerCase();
- const genre=document.getElementById("genre").value;
- const year=document.getElementById("year").value;
- const rating=Number(document.getElementById("rating").value)||0;
- const favs=get("hf_favs");
- const results=movies.filter(m=>
- (!q||m.title.toLowerCase().includes(q))&&
- (category==="الكل"||m.type===category||
- (category==="المفضلة"&&favs.includes(m.id)))&&
- (!genre||m.genre===genre)&&
- (!year||String(m.year)===year)&&m.rating>=rating
- );
- document.getElementById("grid").innerHTML=results.length?results.map(m=>`
- <article class="card" onclick="openDetails(${m.id})">
- <div class="poster" style="--a:${m.color}">
- ${m.icon}
- </div>
- <div class="info">
- <b>${m.title}</b>
- <p>${m.type} · ${m.year}</p>
- <span class="rating">★ ${m.rating}</span>
- </div></article>`).join(""):"<p>ما لقينا نتائج.</p>";
+function card(item){
+ return `<article class="card" onclick="openItem(${item.id})">
+  <div class="poster"><img loading="lazy" src="${item.img}" alt="${item.title}" onerror="this.style.opacity='.2'">
+  <span class="rating">★ ${item.rating}</span></div>
+  <div class="card-info"><div class="card-title">${item.title}</div>
+  <div class="meta">${item.year} · ${typeName(item.type)}</div>
+  <span class="tag">${item.genre}</span></div></article>`;
 }
-function openDetails(id){
- current=movies.find(m=>m.id===id);
- document.getElementById("detailTitle").textContent=current.title;
- document.getElementById("detailInfo").textContent=current.type+" · "+current.year+" · ★ "+current.rating;
- document.getElementById("detailDesc").textContent=current.desc;
- document.getElementById("details").style.display="flex";
+function typeName(type){return {movie:"فيلم",series:"مسلسل",anime:"أنمي"}[type]||type}
+function render(id,list){
+ document.getElementById(id).innerHTML=list.length?list.map(card).join(""):'<div class="empty">لا توجد عناوين لعرضها حاليًا.</div>';
 }
-function closeDetails(){document.getElementById("details").style.display="none"}
-function startWatching(){
- if(!current)return;
- let h=get("hf_history").filter(x=>x.id!==current.id);
- h.push({id:current.id,title:current.title});
- save("hf_history",h);
- closeDetails();
- alert("تمت إضافة العنوان إلى سجل المشاهدة التجريبي. لم يتم ربط فيديو بعد.");
+function renderAll(){
+ render("movieCards",items.filter(x=>x.type==="movie"));
+ render("seriesCards",items.filter(x=>x.type==="series"));
+ render("animeCards",items.filter(x=>x.type==="anime"));
+ render("favoriteCards",items.filter(x=>state.favorites.includes(x.id)));
+ render("continueCards",state.history.map(id=>items.find(x=>x.id===id)).filter(Boolean).reverse().slice(0,5));
 }
-function favorite(){
- if(!current)return;
- let f=get("hf_favs");
- f=f.includes(current.id)?f.filter(x=>x!==current.id):[...f,current.id];
- save("hf_favs",f);render();
- alert(f.includes(current.id)?"أضيف إلى المفضلة":"تمت إزالته من المفضلة");
+function openItem(id){
+ const item=items.find(x=>x.id===id);if(!item)return;
+ state.current=item;
+ state.history=state.history.filter(x=>x!==id);state.history.push(id);
+ save("hf_history",state.history);renderAll();
+ document.getElementById("modalTop").style.backgroundImage=`linear-gradient(0deg,#171717,transparent),url("${item.img}")`;
+ document.getElementById("modalTitle").textContent=item.title;
+ document.getElementById("modalType").textContent="HAIDER FLEX · "+typeName(item.type);
+ document.getElementById("modalMeta").textContent=`${item.year} · ★ ${item.rating} · ${item.genre} · ${item.lang}`;
+ document.getElementById("modalDesc").textContent=item.desc;
+ document.getElementById("favBtn").textContent=state.favorites.includes(id)?"♥️ إزالة من المفضلة":"♡ أضف للمفضلة";
+ document.getElementById("player").style.display="none";
+ document.getElementById("video").pause();
+ document.getElementById("modal").classList.add("show");
 }
-function toggleHistory(){
- const section=document.getElementById("history");
- section.style.display=section.style.display==="none"?"block":"none";
- const h=get("hf_history");
- document.getElementById("historyList").innerHTML=h.length?
- h.slice().reverse().map(x=>"<p>"+x.title+"</p>").join(""):"<p>السجل فارغ.</p>";
+function closeModal(){
+ document.getElementById("video").pause();
+ document.getElementById("modal").classList.remove("show");
 }
-function clearHistory(){
- if(confirm("هل تريد مسح سجل المشاهدة؟")){
- save("hf_history",[]);
- document.getElementById("historyList").innerHTML="<p>السجل فارغ.</p>";
- }
-}
-render();
+function openFeatured(){openItem(4)}
+function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:"smooth"})}
+document.getElementById("favBtn").onclick=()=>{
+ if(!state.current)return;
+ const id=state.current.id;
+ state.favorites=state.favorites.includes(id)?state.favorites.filter(x=>x!==id):[...state.favorites,id];
+ save("hf_favorites",state.favorites);renderAll();
+ document.getElementById("favBtn").textContent=state.favorites.includes(id)?"♥️ إزالة من المفضلة":"♡ أضف للمفضلة";
+ toast(state.favorites.includes(id)?"تمت الإضافة للمفضلة":"تمت الإزالة من المفضلة");
+};
+document.getElementById("playBtn").onclick=()=>{
+ document.getElementById("player").style.display="block";
+ toast("هذا نموذج واجهة؛ اربط فيديو مرخّصًا لتشغيل المحتوى.");
+ document.getElementById("player").scrollIntoView({behavior:"smooth",block:"nearest"});
+};
+document.getElementById("search").addEventListener("input",e=>{
+ const q=e.target.value.trim().toLowerCase();
+ const section=document.getElementById("results");
+ section.style.display=q?"block":"none";
+ if(!q)return;
+ render("resultCards",items.filter(x=>
+  [x.title,x.genre,x.year,x.lang,typeName(x.type)].some(v=>String(v).toLowerCase().includes(q))
+ ));
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+renderAll();
 </script>
 </body>
 </html>
