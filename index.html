@@ -2,200 +2,180 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#090909">
 <title>HAIDER FLEX</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
+:root{--red:#e50914;--bg:#090909;--panel:#181818;--muted:#aaa}
 *{box-sizing:border-box}
-body{margin:0;background:#090909;color:#fff;font-family:Arial,sans-serif}
-header{background:#151515;padding:16px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.logo{font-size:23px;font-weight:900;color:#e50914}
-button,input,select,textarea{font:inherit;padding:11px;border-radius:8px}
-button{border:0;cursor:pointer;font-weight:bold;margin:3px}
-.red{background:#e50914;color:white}.gray{background:#333;color:white}
-input,select,textarea{background:#222;color:white;border:1px solid #444;width:100%;margin:5px 0}
-nav{display:flex;gap:14px;flex-wrap:wrap}
-nav a{color:white;text-decoration:none}
-.hero{padding:65px 6%;background:linear-gradient(90deg,#090909,#09090999),url('https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=1400&q=80') center/cover}
-.hero h1{font-size:clamp(38px,7vw,65px);margin:10px 0}
-main{padding:20px 5%}
-section{margin-bottom:35px}
-.cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
-.card{background:#1b1b1b;border-radius:10px;overflow:hidden;cursor:pointer}
-.card img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block}
-.info{padding:10px}.muted{color:#aaa;font-size:12px}
-.overlay{display:none;position:fixed;inset:0;background:#000d;z-index:10;align-items:center;justify-content:center;padding:12px}
-.overlay.show{display:flex}
-.panel{background:#181818;border:1px solid #444;border-radius:12px;padding:20px;width:min(650px,100%);max-height:92vh;overflow:auto}
-.close{float:left;background:#333;color:white}
-.profiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.profile{background:#292929;border:1px solid #444;border-radius:10px;padding:15px;text-align:center;cursor:pointer}
-.avatar{font-size:38px}.profileGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
-.avatarChoice{padding:9px;text-align:center;background:#292929;border-radius:8px;cursor:pointer}
-.avatarChoice.selected{outline:2px solid #e50914}
-.notice{background:#302713;color:#f4dba5;padding:12px;border-radius:8px;font-size:12px;line-height:1.8}
-.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.plan{background:#1b1b1b;padding:15px;border:1px solid #444;border-radius:10px}
-#toast{display:none;position:fixed;bottom:15px;left:50%;transform:translateX(-50%);background:#333;padding:12px;border-radius:8px;z-index:30}
-@media(max-width:750px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.plans{grid-template-columns:1fr}header{align-items:flex-start}.profiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+body{margin:0;background:var(--bg);color:white;font-family:Cairo,Arial,sans-serif}
+button,input{font:inherit}
+button{cursor:pointer}
+header{position:sticky;top:0;z-index:5;background:#090909ed;backdrop-filter:blur(12px);display:flex;align-items:center;gap:20px;padding:15px 5%;border-bottom:1px solid #252525}
+.logo{font-size:22px;font-weight:900;color:var(--red);white-space:nowrap}
+nav{display:flex;gap:15px;flex:1;overflow:auto}
+nav a{color:#ddd;text-decoration:none;white-space:nowrap;font-size:13px}
+input{background:#202020;color:white;border:1px solid #383838;border-radius:8px;padding:10px;width:220px;max-width:40vw}
+.hero{min-height:400px;padding:60px 6%;display:flex;align-items:center;background:linear-gradient(90deg,#090909,#090909bb 50%,#09090935),linear-gradient(0deg,#090909,transparent),url('https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=1600&q=80') center/cover}
+.hero div{max-width:580px}
+.hero small{color:#ff414b;font-weight:bold;letter-spacing:3px}
+h1{font-size:clamp(38px,6vw,64px);line-height:1.25;margin:15px 0}
+p{line-height:2;color:#ddd}
+.btn{border:0;border-radius:7px;padding:11px 17px;margin:4px;font-weight:bold}
+.red{background:var(--red);color:white}
+.gray{background:#333;color:white}
+main{padding:20px 5% 50px}
+section{margin-bottom:38px}
+h2{font-size:20px}
+.cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:15px}
+.card{background:var(--panel);border-radius:9px;overflow:hidden;cursor:pointer;transition:.2s}
+.card:hover{transform:translateY(-4px)}
+.poster{aspect-ratio:2/3;position:relative;background:#222}
+.poster img{width:100%;height:100%;object-fit:cover}
+.rating{position:absolute;top:8px;right:8px;background:#000c;padding:3px 7px;border-radius:5px}
+.info{padding:10px}
+.title{font-size:13px;font-weight:bold;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta{font-size:11px;color:var(--muted);margin-top:5px}
+.tag{font-size:10px;color:#ff5961;display:inline-block;margin-top:5px}
+.empty{color:#aaa;padding:12px}
+footer{border-top:1px solid #222;padding:25px 5%;color:#999;font-size:12px}
+.modal{display:none;position:fixed;inset:0;background:#000d;z-index:10;align-items:center;justify-content:center;padding:15px}
+.modal.show{display:flex}
+.box{width:min(650px,100%);max-height:90vh;overflow:auto;background:#181818;border:1px solid #333;border-radius:12px}
+.cover{height:210px;background-size:cover;background-position:center;position:relative}
+.close{position:absolute;left:12px;top:12px;border:0;border-radius:50%;background:#000c;color:white;font-size:23px;width:38px;height:38px}
+.body{padding:20px}
+#toast{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#292929;padding:12px 20px;border-radius:8px;z-index:20}
+@media(max-width:850px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){header{flex-wrap:wrap;gap:12px;padding:12px 4%}nav{order:3;flex-basis:100%}input{margin-right:auto;width:42%}.hero{min-height:350px;padding:35px 5%}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}main{padding:15px 4%}.title{font-size:12px}}
 </style>
 </head>
 <body>
 <header>
- <div class="logo">HAIDER FLEX</div>
- <nav>
-  <a href="#home">الرئيسية</a>
-  <a href="#movies">الأفلام</a>
-  <a href="#series">المسلسلات</a>
-  <a href="#anime">الأنمي</a>
-  <a href="#favorites">المفضلة</a>
- </nav>
- <button class="red" onclick="openAccount()">الحساب / الملفات</button>
+  <div class="logo">HAIDER FLEX</div>
+  <nav>
+    <a href="#home">الرئيسية</a>
+    <a href="#movies">الأفلام</a>
+    <a href="#series">المسلسلات</a>
+    <a href="#anime">الأنمي</a>
+    <a href="#favorites">❤️ مفضلتي</a>
+    <a href="#history">🕘 شاهدت</a>
+  </nav>
+  <input id="search" placeholder="ابحث عن محتوى..." aria-label="بحث">
 </header>
 
-<div class="hero" id="home">
- <h1>قصتك القادمة<br>تبدأ هنا</h1>
- <p>الأفلام والمسلسلات والأنمي في مكان واحد.</p>
- <button class="red" onclick="document.querySelector('#movies').scrollIntoView()">تصفح المكتبة</button>
-</div>
+<section class="hero" id="home">
+  <div>
+    <small>H A I D E R&nbsp; F L E X</small>
+    <h1>قصتك القادمة<br>تبدأ هنا</h1>
+    <p>اكتشف الأفلام والمسلسلات والأنمي في واجهة سينمائية واحدة.</p>
+    <button class="btn red" onclick="openItem(4)">▶️ اكتشف المميز</button>
+    <button class="btn gray" onclick="document.querySelector('#movies').scrollIntoView({behavior:'smooth'})">تصفح المكتبة</button>
+  </div>
+</section>
 
 <main>
- <section id="searchArea">
-  <h2>🔎 البحث</h2>
-  <input id="search" placeholder="اسم فيلم أو مسلسل أو تصنيف">
- </section>
- <section id="results" style="display:none"><h2>نتائج البحث</h2><div class="cards" id="resultCards"></div></section>
- <section id="movies"><h2>🎬 الأفلام</h2><div class="cards" id="movieCards"></div></section>
- <section id="series"><h2>📺 المسلسلات</h2><div class="cards" id="seriesCards"></div></section>
- <section id="anime"><h2>⚡ الأنمي</h2><div class="cards" id="animeCards"></div></section>
- <section id="favorites"><h2>❤️ المفضلة</h2><div class="cards" id="favoriteCards"></div></section>
- <section id="history"><h2>🕘 شاهدت مؤخرًا</h2><div class="cards" id="historyCards"></div></section>
- <section id="subscriptions">
-  <h2>💎 الاشتراكات</h2>
-  <div class="plans">
-   <div class="plan"><h3>شهري</h3><h2>5 د.ب</h2><p>لمدة شهر</p><button class="red" onclick="requestPlan('شهري','5 د.ب')">طلب الاشتراك</button></div>
-   <div class="plan"><h3>ثلاثة أشهر</h3><h2>15 د.ب</h2><p>لمدة ثلاثة أشهر</p><button class="red" onclick="requestPlan('ثلاثة أشهر','15 د.ب')">طلب الاشتراك</button></div>
-   <div class="plan"><h3>سنوي</h3><h2>السعر غير محدد</h2><button class="gray" onclick="toast('حدد السعر السنوي أولًا')">قريبًا</button></div>
-  </div>
- </section>
+  <section id="results" style="display:none">
+    <h2>نتائج البحث</h2><div class="cards" id="resultCards"></div>
+  </section>
+  <section id="movies"><h2>🎬 الأفلام</h2><div class="cards" id="movieCards"></div></section>
+  <section id="series"><h2>📺 المسلسلات</h2><div class="cards" id="seriesCards"></div></section>
+  <section id="anime"><h2>⚡ الأنمي</h2><div class="cards" id="animeCards"></div></section>
+  <section id="favorites"><h2>❤️ مفضلتي</h2><div class="cards" id="favoriteCards"></div></section>
+  <section id="history"><h2>🕘 شاهدت مؤخرًا</h2><div class="cards" id="historyCards"></div></section>
 </main>
 
-<footer style="padding:20px;color:#999">
- HAIDER FLEX — نسخة تجريبية. الحسابات هنا محلية وليست حسابات إنترنت حقيقية.
+<footer>
+  <b style="color:#e50914">HAIDER FLEX</b><br>
+  بدون حسابات أو تسجيل دخول أو اشتراكات أو دفع.<br>
+  المفضلة وسجل المشاهدة محفوظان محليًا على هذا الجهاز.
 </footer>
 
-<div class="overlay" id="accountModal">
- <div class="panel">
-  <button class="close" onclick="hide('accountModal')">×</button>
-  <h2>حساب HAIDER FLEX</h2>
-  <div class="notice">نسخة تجريبية فقط: لا تدخل كلمة مرور تستخدمها في حساباتك الحقيقية. يلزم خادم آمن لتفعيل الحسابات عبر الإنترنت.</div>
-  <div id="auth">
-   <label>البريد الإلكتروني</label><input id="email" type="email" placeholder="البريد الإلكتروني">
-   <label>كلمة المرور التجريبية</label><input id="password" type="password" placeholder="كلمة المرور">
-   <button class="red" onclick="signIn()">تسجيل الدخول</button>
-   <button class="gray" onclick="signUp()">إنشاء حساب</button>
-  </div>
-  <div id="accountActions" style="display:none">
-   <p id="accountText"></p>
-   <button class="red" onclick="showProfiles()">اختيار الملف</button>
-   <button class="gray" onclick="editProfiles()">إدارة الملفات</button>
-   <button class="gray" onclick="adminLogin()">دخول الإدارة</button>
-   <button class="gray" onclick="signOut()">تسجيل الخروج</button>
-  </div>
-  <div id="profilePicker" style="display:none"><h3>من يشاهد الآن؟</h3><div class="profiles" id="profileCards"></div></div>
-  <div id="profileEditor" style="display:none">
-   <h3>إدارة الملفات — الحد الأقصى ٥</h3>
-   <div id="profileList"></div>
-   <h3 id="formTitle">إضافة ملف</h3>
-   <input id="profileName" maxlength="24" placeholder="اسم الملف">
-   <label>الصورة الرمزية</label><div class="profileGrid" id="avatarChoices"></div>
-   <label>التصنيف العمري</label>
-   <select id="profileAge"><option value="all">عام</option><option value="kids">أطفال</option><option value="7">7+</option><option value="13">13+</option><option value="16">16+</option><option value="18">18+</option></select>
-   <label>رقم PIN اختياري (٤ أرقام)</label><input id="profilePin" maxlength="4" inputmode="numeric" placeholder="PIN">
-   <button class="red" onclick="saveProfile()">حفظ الملف</button>
-  </div>
-  <div id="pinBox" style="display:none"><h3 id="pinTitle">أدخل PIN</h3><input id="pinCheck" maxlength="4" inputmode="numeric" placeholder="PIN"><button class="red" onclick="checkPin()">متابعة</button></div>
- </div>
-</div>
-
-<div class="overlay" id="adminModal">
- <div class="panel">
-  <button class="close" onclick="hide('adminModal')">×</button>
-  <h2>⚙️ لوحة الإدارة التجريبية</h2>
-  <div class="notice">هذه اللوحة غير محمية بخادم. لا تنشرها باعتبارها لوحة آمنة قبل ربط مصادقة وصلاحيات حقيقية.</div>
-  <label>البريد الإداري</label><input id="adminEmail" value="haider.sabba@icloud.com">
-  <label>كلمة مرور الإدارة التجريبية</label><input id="adminPass" type="password">
-  <button class="red" onclick="enterAdmin()">دخول</button>
-  <div id="adminTools" style="display:none">
-   <h3>إضافة فيلم / مسلسل / أنمي</h3>
-   <input id="contentTitle" placeholder="عنوان المحتوى">
-   <div style="display:flex;gap:8px"><input id="contentYear" type="number" value="2026"><select id="contentType"><option value="movie">فيلم</option><option value="series">مسلسل</option><option value="anime">أنمي</option></select></div>
-   <input id="contentGenre" placeholder="التصنيف">
-   <input id="contentImage" type="url" placeholder="رابط صورة الملصق">
-   <input id="contentVideo" type="url" placeholder="رابط فيديو تملك حق عرضه">
-   <textarea id="contentDesc" placeholder="الوصف"></textarea>
-   <button class="red" onclick="addContent()">إضافة المحتوى</button>
-   <h3>إدارة المحتوى</h3><div id="adminList"></div>
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+ <div class="box">
+  <div class="cover" id="cover"><button class="close" onclick="closeModal()">×</button></div>
+  <div class="body">
+   <h2 id="detailTitle"></h2>
+   <div class="meta" id="detailMeta"></div>
+   <p id="detailDesc"></p>
+   <button class="btn red" onclick="playDemo()">▶️ تشغيل</button>
+   <button class="btn gray" id="favButton" onclick="toggleFavorite()">♡ أضف للمفضلة</button>
+   <div id="player" style="display:none;background:#000;padding:20px;border-radius:8px;margin-top:15px;text-align:center">
+    <p>مشغل الفيديو</p>
+    <video id="video" controls playsinline style="width:100%;max-height:50vh"></video>
+    <p style="font-size:12px;color:#aaa">أضف رابط فيديو مرخّص في بيانات المحتوى لتفعيل المشاهدة.</p>
+   </div>
   </div>
  </div>
 </div>
-
-<div class="overlay" id="detailModal"><div class="panel">
- <button class="close" onclick="hide('detailModal')">×</button>
- <div id="detailImage"></div><h2 id="detailTitle"></h2><p id="detailMeta"></p><p id="detailDesc"></p>
- <button class="red" onclick="playContent()">▶️ تشغيل</button>
- <button class="gray" onclick="toggleFavorite()">♡ المفضلة</button>
- <video id="player" controls playsinline style="display:none;width:100%;max-height:50vh;background:#000"></video>
-</div></div>
 <div id="toast"></div>
 
 <script>
-const seed=[
-{id:1,title:"رحلة إلى المجهول",year:2025,type:"movie",genre:"مغامرات",age:"all",rating:8.2,desc:"رحلة مليئة بالأسرار والاكتشافات.",img:"https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=600&q=80",video:""},
-{id:2,title:"عالم الغموض",year:2024,type:"movie",genre:"غموض",age:"13",rating:8.5,desc:"أحداث مترابطة وأسرار تحتاج إلى حل.",img:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80",video:""},
-{id:3,title:"آخر محطة",year:2025,type:"series",genre:"دراما",age:"13",rating:8.7,desc:"شخصيات مختلفة تجمعها رحلة متغيرة.",img:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=600&q=80",video:""},
-{id:4,title:"ما وراء النجوم",year:2026,type:"movie",genre:"خيال علمي",age:"all",rating:9,desc:"مغامرة خيالية في عالم واسع من النجوم.",img:"https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=600&q=80",video:""},
-{id:5,title:"مدينة الأبطال",year:2025,type:"anime",genre:"أنمي",age:"7",rating:9.1,desc:"قصة خيالية عن الصداقة والشجاعة.",img:"https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80",video:""}
+const catalog=[
+{id:1,title:"رحلة إلى المجهول",year:2025,type:"movie",genre:"مغامرات",rating:8.2,lang:"عربي",desc:"رحلة مليئة بالأسرار والاكتشافات.",img:"https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=600&q=80",video:""},
+{id:2,title:"عالم الغموض",year:2024,type:"movie",genre:"غموض",rating:8.5,lang:"إنجليزي",desc:"أحداث مترابطة وأسرار تحتاج إلى حل.",img:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80",video:""},
+{id:3,title:"آخر محطة",year:2025,type:"series",genre:"دراما",rating:8.7,lang:"عربي",desc:"شخصيات مختلفة تجمعها رحلة متغيرة.",img:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=600&q=80",video:""},
+{id:4,title:"ما وراء النجوم",year:2026,type:"movie",genre:"خيال علمي",rating:9.0,lang:"إنجليزي",desc:"مغامرة خيالية في عالم واسع من النجوم.",img:"https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=600&q=80",video:""},
+{id:5,title:"ملفات سرية",year:2024,type:"series",genre:"تحقيق",rating:8.1,lang:"إنجليزي",desc:"قضايا وأدلة تقود إلى اكتشافات غير متوقعة.",img:"https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80",video:""},
+{id:6,title:"مدينة الأبطال",year:2025,type:"anime",genre:"أنمي",rating:9.1,lang:"ياباني",desc:"قصة خيالية عن الصداقة والشجاعة.",img:"https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80",video:""},
+{id:7,title:"المحيط الأزرق",year:2023,type:"movie",genre:"وثائقي",rating:8.4,lang:"إنجليزي",desc:"اكتشف عجائب الطبيعة وأعماق المحيط.",img:"https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=600&q=80",video:""},
+{id:8,title:"أسرار الليل",year:2025,type:"series",genre:"تشويق",rating:8.6,lang:"عربي",desc:"كل ليلة تحمل دليلًا جديدًا.",img:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=600&q=80",video:""},
+{id:9,title:"مملكة الخيال",year:2024,type:"anime",genre:"فانتازيا",rating:8.9,lang:"ياباني",desc:"مملكة بعيدة وأسرار تنتظر الاكتشاف.",img:"https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80",video:""},
+{id:10,title:"الطريق الطويل",year:2023,type:"movie",genre:"دراما",rating:7.9,lang:"إنجليزي",desc:"قصة عن الأمل والتغيير والبدايات الجديدة.",img:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80",video:""}
 ];
-const avatars=["😀","😎","🦊","🐼","🐯","🐸","🐨","🦄","🐱","🐻"];
-function read(k,f){try{return JSON.parse(localStorage.getItem(k))??f}catch{return f}}
-let catalog=read("hf_catalog",seed),users=read("hf_users",{}),email="",active=null,editId=null,chosenAvatar=avatars[0],pending=null,item=null;
-let favorites=[],history=[];
-function save(){localStorage.setItem("hf_catalog",JSON.stringify(catalog));localStorage.setItem("hf_users",JSON.stringify(users));if(email&&active){localStorage.setItem("hf_fav_"+email+"_"+active.id,JSON.stringify(favorites));localStorage.setItem("hf_hist_"+email+"_"+active.id,JSON.stringify(history))}}
-function toast(s){let t=document.getElementById("toast");t.textContent=s;t.style.display="block";setTimeout(()=>t.style.display="none",2500)}
-function show(id){document.getElementById(id).classList.add("show")}function hide(id){document.getElementById(id).classList.remove("show")}
-function safe(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+
+function read(key){try{return JSON.parse(localStorage.getItem(key))||[]}catch{return[]}}
+const favorites=read("haider_flex_favorites");
+const history=read("haider_flex_history");
+let current=null;
+
+function save(){localStorage.setItem("haider_flex_favorites",JSON.stringify(favorites));localStorage.setItem("haider_flex_history",JSON.stringify(history))}
 function typeName(t){return {movie:"فيلم",series:"مسلسل",anime:"أنمي"}[t]||t}
-function allowed(){if(!active)return catalog;if(active.age==="kids")return catalog.filter(x=>["kids","all","7"].includes(x.age));if(active.age==="all")return catalog;return catalog.filter(x=>x.age==="all"||x.age==="kids"||Number(x.age||0)<=Number(active.age))}
-function card(x){return `<article class="card" onclick="openItem(${x.id})"><img loading="lazy" src="${safe(x.img)}" alt="${safe(x.title)}"><div class="info"><b>${safe(x.title)}</b><div class="muted">${x.year} · ${typeName(x.type)} · ★ ${x.rating}</div></div></article>`}
-function render(id,list){document.getElementById(id).innerHTML=list.length?list.map(card).join(""):'<p class="muted">لا توجد عناوين.</p>'}
-function renderAll(){let a=allowed();render("movieCards",a.filter(x=>x.type==="movie"));render("seriesCards",a.filter(x=>x.type==="series"));render("animeCards",a.filter(x=>x.type==="anime"));render("favoriteCards",a.filter(x=>favorites.includes(x.id)));render("historyCards",history.map(i=>a.find(x=>x.id===i)).filter(Boolean).reverse())}
-document.getElementById("search").addEventListener("input",e=>{let q=e.target.value.trim().toLowerCase();document.getElementById("results").style.display=q?"block":"none";if(q)render("resultCards",allowed().filter(x=>[x.title,x.genre,x.year,typeName(x.type)].some(v=>String(v).toLowerCase().includes(q)))});
-function openItem(id){item=allowed().find(x=>x.id===id);if(!item){toast("هذا المحتوى غير متاح لهذا الملف.");return}history=history.filter(x=>x!==id);history.push(id);save();renderAll();document.getElementById("detailTitle").textContent=item.title;document.getElementById("detailMeta").textContent=item.year+" · "+item.genre+" · ★ "+item.rating;document.getElementById("detailDesc").textContent=item.desc;document.getElementById("detailImage").innerHTML=`<img src="${safe(item.img)}" style="width:100%;max-height:220px;object-fit:cover;border-radius:8px">`;document.getElementById("player").style.display="none";document.getElementById("player").pause();show("detailModal")}
-function toggleFavorite(){if(!item)return;favorites=favorites.includes(item.id)?favorites.filter(x=>x!==item.id):[...favorites,item.id];save();renderAll();toast("تم تحديث المفضلة")}
-function playContent(){let v=document.getElementById("player");v.style.display="block";if(item?.video){v.src=item.video;v.play().catch(()=>toast("اضغط تشغيل في المشغل"))}else toast("أضف رابط فيديو مرخّص من لوحة الإدارة أولًا")}
-function openAccount(){show("accountModal");let signed=!!(email&&users[email]);document.getElementById("auth").style.display=signed?"none":"block";document.getElementById("accountActions").style.display=signed?"block":"none";if(signed)document.getElementById("accountText").textContent="الحساب: "+email;["profilePicker","profileEditor","pinBox"].forEach(x=>document.getElementById(x).style.display="none")}
-function signUp(){let e=document.getElementById("email").value.trim().toLowerCase(),p=document.getElementById("password").value;if(!e||!p)return toast("أدخل البريد وكلمة المرور");if(users[e])return toast("الحساب موجود");users[e]={password:p,profiles:[{id:Date.now(),name:"الرئيسي",avatar:"😎",age:"all",pin:""}]};email=e;save();openAccount();toast("تم إنشاء حساب تجريبي محلي")}
-function signIn(){let e=document.getElementById("email").value.trim().toLowerCase(),p=document.getElementById("password").value;if(!users[e]||users[e].password!==p)return toast("بيانات الدخول غير صحيحة على هذا الجهاز");email=e;active=null;openAccount();toast("تم تسجيل الدخول محليًا")}
-function signOut(){email="";active=null;favorites=[];history=[];document.querySelector('header button').textContent="الحساب / الملفات";hide("accountModal");renderAll()}
-function showProfiles(){["profileEditor","pinBox"].forEach(x=>document.getElementById(x).style.display="none");document.getElementById("profilePicker").style.display="block";document.getElementById("profileCards").innerHTML=users[email].profiles.map(p=>`<div class="profile" onclick="chooseProfile(${p.id})"><div class="avatar">${p.avatar}</div><b>${safe(p.name)}</b><div class="muted">${safe(p.age)}</div></div>`).join("")}
-function chooseProfile(id){let p=users[email].profiles.find(x=>x.id===id);if(p.pin){pending=p;document.getElementById("profilePicker").style.display="none";document.getElementById("pinBox").style.display="block";document.getElementById("pinTitle").textContent="أدخل PIN لملف "+p.name;document.getElementById("pinCheck").value=""}else activate(p)}
-function checkPin(){if(!pending||document.getElementById("pinCheck").value!==pending.pin)return toast("PIN غير صحيح");let p=pending;pending=null;activate(p)}
-function activate(p){active=p;favorites=read("hf_fav_"+email+"_"+p.id,[]);history=read("hf_hist_"+email+"_"+p.id,[]);document.querySelector('header button').textContent=p.avatar+" "+p.name;hide("accountModal");renderAll();toast("مرحبًا "+p.name)}
-function editProfiles(){if(!email||!users[email])return toast("سجّل الدخول أولًا");document.getElementById("profilePicker").style.display="none";document.getElementById("profileEditor").style.display="block";renderProfileList();resetProfileForm()}
-function renderProfileList(){document.getElementById("profileList").innerHTML=users[email].profiles.map(p=>`<div style="padding:8px;background:#292929;margin:5px;border-radius:8px">${p.avatar} ${safe(p.name)} — ${safe(p.age)} <button class="gray" onclick="editProfile(${p.id})">تعديل</button> <button class="gray" onclick="deleteProfile(${p.id})">حذف</button></div>`).join("")}
-function drawAvatars(){document.getElementById("avatarChoices").innerHTML=avatars.map(a=>`<div class="avatarChoice ${a===chosenAvatar?"selected":""}" onclick="chosenAvatar='${a}';drawAvatars()">${a}</div>`).join("")}
-function resetProfileForm(){editId=null;chosenAvatar=avatars[0];document.getElementById("profileName").value="";document.getElementById("profileAge").value="all";document.getElementById("profilePin").value="";drawAvatars()}
-function editProfile(id){let p=users[email].profiles.find(x=>x.id===id);if(!p)return;editId=id;chosenAvatar=p.avatar;document.getElementById("profileName").value=p.name;document.getElementById("profileAge").value=p.age;document.getElementById("profilePin").value=p.pin||"";drawAvatars()}
-function saveProfile(){let name=document.getElementById("profileName").value.trim(),age=document.getElementById("profileAge").value,pin=document.getElementById("profilePin").value.trim();if(!name)return toast("اكتب اسم الملف");if(pin&&!/^\d{4}$/.test(pin))return toast("PIN يجب أن يكون 4 أرقام");let ps=users[email].profiles;if(!editId&&ps.length>=5)return toast("الحد الأقصى خمسة ملفات");if(editId)Object.assign(ps.find(x=>x.id===editId),{name,age,pin,avatar:chosenAvatar});else ps.push({id:Date.now(),name,age,pin,avatar:chosenAvatar});save();renderProfileList();resetProfileForm();toast("تم حفظ الملف")}
-function deleteProfile(id){let ps=users[email].profiles;if(ps.length<=1)return toast("لازم يبقى ملف واحد");users[email].profiles=ps.filter(p=>p.id!==id);save();renderProfileList()}
-function adminLogin(){document.getElementById("adminEmail").value="haider.sabba@icloud.com";document.getElementById("adminTools").style.display="none";show("adminModal")}
-function enterAdmin(){let e=document.getElementById("adminEmail").value.trim().toLowerCase(),p=document.getElementById("adminPass").value;if(e!=="haider.sabba@icloud.com"||!p)return toast("أدخل البريد الإداري وكلمة مرور تجريبية");document.getElementById("adminTools").style.display="block";renderAdmin();toast("لوحة تجريبية فقط — لا يوجد تحقق خادمي")}
-function addContent(){let title=document.getElementById("contentTitle").value.trim();if(!title)return toast("اكتب العنوان");catalog.unshift({id:Date.now(),title,year:Number(document.getElementById("contentYear").value)||2026,type:document.getElementById("contentType").value,genre:document.getElementById("contentGenre").value||"متنوع",rating:8,age:"all",desc:document.getElementById("contentDesc").value||"",img:document.getElementById("contentImage").value||"https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=600&q=80",video:document.getElementById("contentVideo").value||""});save();renderAll();renderAdmin();toast("أُضيف المحتوى لهذه النسخة المحلية")}
-function renderAdmin(){document.getElementById("adminList").innerHTML=catalog.map(x=>`<div style="padding:8px;background:#292929;margin:5px;border-radius:8px">${safe(x.title)} <button class="gray" onclick="removeContent(${x.id})">حذف</button></div>`).join("")}
-function removeContent(id){catalog=catalog.filter(x=>x.id!==id);save();renderAll();renderAdmin()}
-function requestPlan(plan,price){toast("اخترت "+plan+" بسعر "+price+" — الدفع والتفعيل غير مربوطين بعد")}
-drawAvatars();renderAll();
+function card(x){return `<article class="card" onclick="openItem(${x.id})"><div class="poster"><img loading="lazy" src="${x.img}" alt="${x.title}" style="width:100%;height:100%;object-fit:cover"><span class="rating">★ ${x.rating}</span></div><div class="info"><div class="title">${x.title}</div><div class="meta">${x.year} · ${typeName(x.type)}</div><span class="tag">${x.genre}</span></div></article>`}
+function render(id,list){document.getElementById(id).innerHTML=list.length?list.map(card).join(""):'<div class="empty">لا توجد عناوين هنا حاليًا.</div>'}
+function renderAll(){
+ render("movieCards",catalog.filter(x=>x.type==="movie"));
+ render("seriesCards",catalog.filter(x=>x.type==="series"));
+ render("animeCards",catalog.filter(x=>x.type==="anime"));
+ render("favoriteCards",catalog.filter(x=>favorites.includes(x.id)));
+ render("historyCards",history.map(id=>catalog.find(x=>x.id===id)).filter(Boolean).reverse());
+}
+function openItem(id){
+ current=catalog.find(x=>x.id===id);if(!current)return;
+ const i=history.indexOf(id);if(i>=0)history.splice(i,1);history.push(id);save();renderAll();
+ document.getElementById("cover").style.backgroundImage=`linear-gradient(0deg,#181818,transparent),url("${current.img}")`;
+ document.getElementById("detailTitle").textContent=current.title;
+ document.getElementById("detailMeta").textContent=`${current.year} · ★ ${current.rating} · ${current.genre} · ${current.lang}`;
+ document.getElementById("detailDesc").textContent=current.desc;
+ document.getElementById("favButton").textContent=favorites.includes(id)?"♥️ إزالة من المفضلة":"♡ أضف للمفضلة";
+ document.getElementById("player").style.display="none";
+ document.getElementById("video").pause();
+ document.getElementById("modal").classList.add("show");
+}
+function closeModal(){document.getElementById("video").pause();document.getElementById("modal").classList.remove("show")}
+function toggleFavorite(){
+ if(!current)return;
+ const i=favorites.indexOf(current.id);
+ if(i>=0)favorites.splice(i,1);else favorites.push(current.id);
+ save();renderAll();
+ document.getElementById("favButton").textContent=favorites.includes(current.id)?"♥️ إزالة من المفضلة":"♡ أضف للمفضلة";
+ toast(i>=0?"تمت الإزالة من المفضلة":"تمت الإضافة للمفضلة");
+}
+function playDemo(){
+ document.getElementById("player").style.display="block";
+ const video=document.getElementById("video");
+ if(current&&current.video){video.src=current.video;video.play().catch(()=>toast("اضغط تشغيل داخل الفيديو."))}
+ else toast("هذا العنوان تجريبي؛ أضف رابط فيديو مرخّصًا لتشغيله.");
+}
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.style.display="block";setTimeout(()=>t.style.display="none",2300)}
+document.getElementById("search").addEventListener("input",e=>{
+ const q=e.target.value.trim().toLowerCase(),sec=document.getElementById("results");
+ sec.style.display=q?"block":"none";
+ if(q)render("resultCards",catalog.filter(x=>[x.title,x.genre,x.year,x.lang,typeName(x.type)].some(v=>String(v).toLowerCase().includes(q))));
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+renderAll();
 </script>
 </body>
 </html>
