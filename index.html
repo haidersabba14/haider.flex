@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HAIDER FLEX</title>
+<style>
+:root {
+  --bg:#080b14; --panel:#111827; --gold:#f5c451;
+  --text:#f8fafc; --muted:#a5b0c4; --line:#273247;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; font-family:Arial,Tahoma,sans-serif;
+  background:var(--bg); color:var(--text);
+}
+header {
+  padding:18px 6%; display:flex; justify-content:space-between;
+  align-items:center; border-bottom:1px solid var(--line);
+  background:#0b1020; position:sticky; top:0;
+}
+.logo {font-weight:900;font-size:22px;color:var(--gold)}
+button,a {font:inherit;cursor:pointer}
+button {
+  border:0;border-radius:12px;padding:12px 17px;
+  background:var(--gold);color:#151515;font-weight:bold;
+}
+a {color:inherit;text-decoration:none}
+.hero {padding:65px 6%;text-align:center}
+.hero h1 {font-size:clamp(34px,7vw,62px);margin:15px 0}
+.hero h1 span {color:var(--gold)}
+.hero p {color:var(--muted);line-height:1.9}
+.container {max-width:1100px;margin:auto;padding:20px}
+.section-title {margin:20px 0;color:var(--gold)}
+.grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.card {
+  background:var(--panel);border:1px solid var(--line);
+  padding:22px;border-radius:18px;
+}
+.card h3 {margin-top:0}
+.card p {color:var(--muted);line-height:1.8}
+.card button {width:100%;margin-top:10px}
+.toolbar {display:flex;gap:10px;margin:15px 0;flex-wrap:wrap}
+input,textarea,select {
+  width:100%;padding:13px;border-radius:10px;
+  background:#0b1020;color:white;border:1px solid var(--line);
+  font:inherit;
+}
+.toolbar input {flex:1;min-width:180px}
+.cart-box {
+  background:var(--panel);padding:20px;border-radius:16px;
+  margin:25px 0;border:1px solid var(--line);
+}
+.item {display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.small-btn {padding:6px 10px;margin-right:8px}
+footer {text-align:center;color:var(--muted);padding:35px 15px}
+.notice {color:var(--muted);font-size:13px;line-height:1.8}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">⚡ HAIDER FLEX</div>
+  <button onclick="document.getElementById('store').scrollIntoView({behavior:'smooth'})">
+    تصفح الخدمات
+  </button>
+</header>
+
+<section class="hero">
+  <div style="color:var(--gold)">YOUR DIGITAL WORLD</div>
+  <h1>مرحباً بك في <span>HAIDER FLEX</span></h1>
+  <p>متجرك الرقمي — تصفح الخدمات وأضف اختياراتك إلى السلة بسهولة.</p>
+  <button onclick="document.getElementById('store').scrollIntoView({behavior:'smooth'})">
+    ابدأ الآن ←
+  </button>
+</section>
+
+<main class="container" id="store">
+  <h2 class="section-title">الخدمات والمنتجات</h2>
+  <div class="toolbar">
+    <input id="search" placeholder="ابحث عن خدمة..." oninput="renderProducts()">
+    <select id="category" onchange="renderProducts()" style="max-width:180px">
+      <option value="">كل الأقسام</option>
+      <option value="اشتراكات">اشتراكات</option>
+      <option value="ألعاب">ألعاب</option>
+      <option value="رقمية">خدمات رقمية</option>
+    </select>
+  </div>
+  <div class="grid" id="products"></div>
+
+  <section class="cart-box">
+    <h2 class="section-title">🛒 سلة المشتريات (<span id="count">0</span>)</h2>
+    <div id="cart"></div>
+    <h3>الإجمالي: <span id="total">0.000</span> د.ب</h3>
+    <button onclick="checkout()">إرسال الطلب عبر واتساب</button>
+    <button onclick="clearCart()" style="background:#30394b;color:white;margin-right:6px">
+      إفراغ السلة
+    </button>
+    <p class="notice">أضف رقم واتساب المتجر في الإعدادات داخل السكربت قبل استقبال الطلبات.</p>
+  </section>
+
+  <section class="card">
+    <h2 class="section-title">تواصل معنا</h2>
+    <p>للاستفسارات أو طلب إضافة خدمة جديدة، تواصل معنا عبر واتساب.</p>
+    <button onclick="checkout()">تواصل عبر واتساب</button>
+  </section>
+</main>
+
+<footer>©️ <span id="year"></span> HAIDER FLEX — جميع الحقوق محفوظة</footer>
+
+<script>
+"use strict";
+
+/* غيّر الرقم إلى رقم المتجر مع رمز الدولة، من دون علامة + */
+const WHATSAPP_NUMBER = "97300000000";
+
+/* عدّل المنتجات والأسعار حسب خدمات متجرك */
+const productsList = [
+  {id:1,name:"اشتراك ترفيهي",category:"اشتراكات",price:5,description:"اشتراك رقمي حسب الباقة المتاحة",icon:"📺"},
+  {id:2,name:"خدمة ألعاب",category:"ألعاب",price:3,description:"خدمات ومنتجات رقمية للألعاب",icon:"🎮"},
+  {id:3,name:"خدمة رقمية",category:"رقمية",price:2,description:"خدمة رقمية حسب الطلب",icon:"⚡"}
+];
+
+let cart = [];
+try {
+  cart = JSON.parse(localStorage.getItem("haiderFlexCart") || "[]");
+  if (!Array.isArray(cart)) cart = [];
+} catch (e) { cart = []; }
+
+function money(n) {
+  return Number(n).toFixed(3);
+}
+
+function saveCart() {
+  try {
+    localStorage.setItem("haiderFlexCart", JSON.stringify(cart));
+  } catch (e) {}
+}
+
+function renderProducts() {
+  const q = document.getElementById("search").value.trim().toLowerCase();
+  const cat = document.getElementById("category").value;
+  const filtered = productsList.filter(p =>
+    p.name.toLowerCase().includes(q) &&
+    (!cat || p.category === cat)
+  );
+
+  document.getElementById("products").innerHTML = filtered.map(p => `
+    <article class="card">
+      <div style="font-size:35px">${p.icon}</div>
+      <h3>${escapeHTML(p.name)}</h3>
+      <p>${escapeHTML(p.description)}</p>
+      <p>القسم: ${escapeHTML(p.category)}</p>
+      <h3>${money(p.price)} د.ب</h3>
+      <button onclick="addToCart(${p.id})">إضافة إلى السلة</button>
+    </article>
+  `).join("") || "<p>ما لقينا نتائج.</p>";
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, c => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;",
+    '"':"&quot;", "'":"&#39;"
+  }[c]));
+}
+
+function addToCart(id) {
+  const p = productsList.find(x => x.id === id);
+  if (!p) return;
+  const existing = cart.find(x => x.id === id);
+  if (existing) existing.qty++;
+  else cart.push({id:p.id,qty:1});
+  saveCart();
+  renderCart();
+}
+
+function changeQty(id, amount) {
+  const item = cart.find(x => x.id === id);
+  if (!item) return;
+  item.qty += amount;
+  cart = cart.filter(x => x.qty > 0);
+  saveCart();
+  renderCart();
+}
+
+function clearCart() {
+  if (!cart.length) return;
+  if (confirm("تبي تفرّغ السلة؟")) {
+    cart = [];
+    saveCart();
+    renderCart();
+  }
+}
+
+function renderCart() {
+  const valid = cart.map(item => ({
+    ...item, product:productsList.find(p => p.id === item.id)
+  })).filter(item => item.product);
+
+  const count = valid.reduce((sum, item) => sum + item.qty, 0);
+  const total = valid.reduce((sum, item) => sum + item.product.price * item.qty, 0);
+
+  document.getElementById("count").textContent = count;
+  document.getElementById("total").textContent = money(total);
+
+  document.getElementById("cart").innerHTML = valid.map(item => `
+    <div class="item">
+      <div>${escapeHTML(item.product.name)}<br>
+        <small>${money(item.product.price)} د.ب × ${item.qty}</small>
+      </div>
+      <div>
+        <button class="small-btn" onclick="changeQty(${item.id},1)">+</button>
+        <button class="small-btn" onclick="changeQty(${item.id},-1)">−</button>
+      </div>
+    </div>
+  `).join("") || "<p class='notice'>السلة فارغة حالياً.</p>";
+}
+
+function checkout() {
+  if (!cart.length) {
+    alert("أضف منتجاً إلى السلة أولاً.");
+    return;
+  }
+  if (!/^\d{8,15}$/.test(WHATSAPP_NUMBER) ||
+      WHATSAPP_NUMBER === "97300000000") {
+    alert("عدّل WHATSAPP_NUMBER داخل السكربت إلى رقم واتساب المتجر الصحيح.");
+    return;
+  }
+
+  const lines = cart.map(item => {
+    const p = productsList.find(x => x.id === item.id);
+    return p ? `• ${p.name} × ${item.qty} = ${money(p.price * item.qty)} د.ب` : "";
+  }).filter(Boolean);
+
+  const total = cart.reduce((sum, item) => {
+    const p = productsList.find(x => x.id === item.id);
+    return sum + (p ? p.price * item.qty : 0);
+  }, 0);
+
+  const message = [
+    "السلام عليكم، أريد طلباً من HAIDER FLEX",
+    "",
+    ...lines,
+    "",
+    `الإجمالي: ${money(total)} د.ب`
+  ].join("\n");
+
+  const url = "https://wa.me/" + WHATSAPP_NUMBER +
+    "?text=" + encodeURIComponent(message);
+
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+
+document.getElementById("year").textContent = new Date().getFullYear();
+renderProducts();
+renderCart();
+</script>
+</body>
+</html>
