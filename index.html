@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090909">
+<title>HAIDER FLEX</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#090909;color:#fff;font-family:Arial,sans-serif}
+header{background:#111;padding:18px 5%;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:2px solid #e50914}
+.logo{font-size:25px;font-weight:bold;color:#e50914}
+.logo span{color:white}
+input,select{padding:11px;border:1px solid #333;background:#202020;color:white;border-radius:8px;max-width:100%}
+button{border:0;border-radius:8px;padding:11px 15px;background:#e50914;color:white;font-weight:bold;cursor:pointer}
+.hero{padding:70px 7%;background:linear-gradient(90deg,#090909,#35070b);min-height:300px}
+.hero h1{font-size:clamp(32px,6vw,55px);margin:10px 0}
+.hero p{color:#ccc;line-height:1.8}
+.section{padding:25px 5%}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:15px}
+.card{background:#171717;border:1px solid #292929;border-radius:10px;overflow:hidden;cursor:pointer}
+.poster{height:210px;display:grid;place-items:center;font-size:60px;background:linear-gradient(140deg,var(--a),#111)}
+.info{padding:12px}
+.info p{font-size:13px;color:#aaa}
+.rating{color:#ffd45c}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips button{background:#252525}
+.chips button.active{background:#e50914}
+#details{display:none;position:fixed;inset:0;background:#000d;z-index:5;align-items:center;justify-content:center;padding:15px}
+.modal{background:#171717;border:1px solid #444;border-radius:14px;padding:25px;max-width:500px;width:100%}
+.modal p{line-height:1.8;color:#ccc}
+footer{padding:25px;text-align:center;color:#888;border-top:1px solid #292929}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.poster{height:170px}.hero{padding:45px 5%}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">HAIDER <span>FLEX</span></div>
+  <input id="search" placeholder="ابحث عن فيلم أو مسلسل..." oninput="render()">
+  <button onclick="toggleHistory()">سجل المشاهدة</button>
+</header>
+
+<section class="hero">
+  <p style="color:#ff4545">YOUR ENTERTAINMENT WORLD</p>
+  <h1>عالمك السينمائي</h1>
+  <p>اكتشف الأفلام والمسلسلات والأنمي في واجهة واحدة.</p>
+  <button onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">▶️ استكشف المحتوى</button>
+</section>
+
+<section class="section" id="catalog">
+  <h2>اكتشف المحتوى</h2>
+  <div class="chips" id="chips">
+    <button class="active" onclick="setCategory('الكل',this)">الكل</button>
+    <button onclick="setCategory('أفلام',this)">أفلام</button>
+    <button onclick="setCategory('مسلسلات',this)">مسلسلات</button>
+    <button onclick="setCategory('أنمي',this)">أنمي</button>
+    <button onclick="setCategory('وثائقيات',this)">وثائقيات</button>
+    <button onclick="setCategory('المفضلة',this)">♥️ المفضلة</button>
+  </div>
+  <div class="filters">
+    <select id="genre" onchange="render()">
+      <option value="">كل الأنواع</option>
+      <option>أكشن</option><option>دراما</option>
+      <option>كوميديا</option><option>خيال علمي</option>
+    </select>
+    <select id="year" onchange="render()">
+      <option value="">كل السنوات</option>
+      <option>2025</option><option>2024</option>
+      <option>2023</option><option>2022</option>
+    </select>
+    <select id="rating" onchange="render()">
+      <option value="">كل التقييمات</option>
+      <option value="8">8+ نجوم</option>
+      <option value="7">7+ نجوم</option>
+    </select>
+  </div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section class="section" id="history" style="display:none">
+  <h2>سجل المشاهدة</h2>
+  <div id="historyList"></div>
+  <button onclick="clearHistory()">مسح السجل</button>
+</section>
+
+<div id="details" onclick="if(event.target===this)closeDetails()">
+  <div class="modal">
+    <button onclick="closeDetails()">✕ إغلاق</button>
+    <h2 id="detailTitle"></h2>
+    <p id="detailInfo"></p>
+    <p id="detailDesc"></p>
+    <button onclick="startWatching()">▶️ متابعة</button>
+    <button onclick="favorite()">♥️ المفضلة</button>
+    <p id="playerNote" style="font-size:12px">مصدر الفيديو غير مربوط بعد.</p>
+  </div>
+</div>
+
+<footer>
+  HAIDER FLEX ©️ 2026<br>
+  منصة تجريبية — أضف المحتوى المرخّص الذي تملك حق عرضه.
+</footer>
+
+<script>
+const movies=[
+{id:1,title:"المدينة الأخيرة",type:"أفلام",genre:"أكشن",year:2025,rating:8.7,icon:"🌆",color:"#77121d",desc:"مغامرة سينمائية في مدينة مليئة بالأسرار."},
+{id:2,title:"ما وراء النجوم",type:"مسلسلات",genre:"خيال علمي",year:2024,rating:9.1,icon:"🚀",color:"#173c6a",desc:"رحلة خيالية إلى أطراف المجرة."},
+{id:3,title:"يوميات صغيرة",type:"أنمي",genre:"دراما",year:2023,rating:8.4,icon:"🌸",color:"#713a73",desc:"حكاية عن الصداقة واكتشاف الذات."},
+{id:4,title:"ملف مجهول",type:"أفلام",genre:"دراما",year:2024,rating:7.9,icon:"🕵️",color:"#444",desc:"لغز غامض يحتاج إلى حل."},
+{id:5,title:"ضحكة أخيرة",type:"مسلسلات",genre:"كوميديا",year:2022,rating:7.6,icon:"🎭",color:"#8b511a",desc:"مواقف يومية مليئة بالمفاجآت."},
+{id:6,title:"كوكب الماء",type:"وثائقيات",genre:"دراما",year:2025,rating:8.9,icon:"🌊",color:"#12677d",desc:"اكتشف عجائب عالم المحيطات."},
+{id:7,title:"المهمة صفر",type:"أفلام",genre:"أكشن",year:2023,rating:8.1,icon:"🧭",color:"#48633a",desc:"مهمة صعبة ومغامرة غير متوقعة."},
+{id:8,title:"ظل القمر",type:"مسلسلات",genre:"دراما",year:2023,rating:8.2,icon:"🌙",color:"#392d68",desc:"أسرار عائلية تنكشف مع الوقت."},
+{id:9,title:"الآلة الذكية",type:"أفلام",genre:"خيال علمي",year:2022,rating:7.8,icon:"🤖",color:"#1e5b60",desc:"قصة عن التكنولوجيا والمستقبل."},
+{id:10,title:"أبطال الغد",type:"أنمي",genre:"أكشن",year:2025,rating:8.6,icon:"⚡",color:"#9c2626",desc:"أصدقاء يتحدون لتحقيق حلمهم."}
+];
+
+let category="الكل",current=null;
+function get(key){try{return JSON.parse(localStorage.getItem(key))||[]}catch{return []}}
+function save(key,value){localStorage.setItem(key,JSON.stringify(value))}
+function setCategory(value,button){
+ category=value;
+ document.querySelectorAll("#chips button").forEach(b=>b.classList.remove("active"));
+ button.classList.add("active");
+ render();
+}
+function render(){
+ const q=document.getElementById("search").value.toLowerCase();
+ const genre=document.getElementById("genre").value;
+ const year=document.getElementById("year").value;
+ const rating=Number(document.getElementById("rating").value)||0;
+ const favs=get("hf_favs");
+ const results=movies.filter(m=>
+ (!q||m.title.toLowerCase().includes(q))&&
+ (category==="الكل"||m.type===category||
+ (category==="المفضلة"&&favs.includes(m.id)))&&
+ (!genre||m.genre===genre)&&
+ (!year||String(m.year)===year)&&m.rating>=rating
+ );
+ document.getElementById("grid").innerHTML=results.length?results.map(m=>`
+ <article class="card" onclick="openDetails(${m.id})">
+ <div class="poster" style="--a:${m.color}">
+ ${m.icon}
+ </div>
+ <div class="info">
+ <b>${m.title}</b>
+ <p>${m.type} · ${m.year}</p>
+ <span class="rating">★ ${m.rating}</span>
+ </div></article>`).join(""):"<p>ما لقينا نتائج.</p>";
+}
+function openDetails(id){
+ current=movies.find(m=>m.id===id);
+ document.getElementById("detailTitle").textContent=current.title;
+ document.getElementById("detailInfo").textContent=current.type+" · "+current.year+" · ★ "+current.rating;
+ document.getElementById("detailDesc").textContent=current.desc;
+ document.getElementById("details").style.display="flex";
+}
+function closeDetails(){document.getElementById("details").style.display="none"}
+function startWatching(){
+ if(!current)return;
+ let h=get("hf_history").filter(x=>x.id!==current.id);
+ h.push({id:current.id,title:current.title});
+ save("hf_history",h);
+ closeDetails();
+ alert("تمت إضافة العنوان إلى سجل المشاهدة التجريبي. لم يتم ربط فيديو بعد.");
+}
+function favorite(){
+ if(!current)return;
+ let f=get("hf_favs");
+ f=f.includes(current.id)?f.filter(x=>x!==current.id):[...f,current.id];
+ save("hf_favs",f);render();
+ alert(f.includes(current.id)?"أضيف إلى المفضلة":"تمت إزالته من المفضلة");
+}
+function toggleHistory(){
+ const section=document.getElementById("history");
+ section.style.display=section.style.display==="none"?"block":"none";
+ const h=get("hf_history");
+ document.getElementById("historyList").innerHTML=h.length?
+ h.slice().reverse().map(x=>"<p>"+x.title+"</p>").join(""):"<p>السجل فارغ.</p>";
+}
+function clearHistory(){
+ if(confirm("هل تريد مسح سجل المشاهدة؟")){
+ save("hf_history",[]);
+ document.getElementById("historyList").innerHTML="<p>السجل فارغ.</p>";
+ }
+}
+render();
+</script>
+</body>
+</html>
