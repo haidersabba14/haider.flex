@@ -2,283 +2,143 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#141414">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111">
 <title>HAIDER FLEX</title>
 <style>
-:root{color-scheme:dark;--red:#e50914;--bg:#141414;--panel:#222;--muted:#aaa}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:#fff;font-family:Arial,sans-serif}
-header{display:flex;align-items:center;gap:18px;padding:16px 5%;background:#101010;position:sticky;top:0;z-index:5;flex-wrap:wrap}
-.logo{font-size:26px;font-weight:900;color:var(--red);white-space:nowrap}
-nav{display:flex;gap:8px;flex:1;flex-wrap:wrap}
-button{border:0;border-radius:4px;padding:10px 13px;cursor:pointer;font:inherit}
-nav button{background:transparent;color:white}
-nav button:hover{color:#ccc}
-.red{background:var(--red);color:white}
-.gray{background:#444;color:white}
-input,select,textarea{background:#292929;color:white;border:1px solid #555;border-radius:4px;padding:11px;font:inherit;max-width:100%}
-.hero{min-height:380px;padding:60px 6%;display:flex;align-items:center;background:linear-gradient(90deg,#141414 5%,#141414a8 65%,transparent),linear-gradient(0deg,#141414,#4b1016)}
-.hero-content{max-width:600px}
-.hero h1{font-size:clamp(36px,7vw,64px);margin:10px 0}
-.hero p{line-height:1.8;color:#ddd}
-main{padding:22px 5%}
-.tools{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0}
-.tools input{flex:1;min-width:150px}
-h2{font-size:23px}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:15px}
-.card{background:#242424;border-radius:5px;overflow:hidden;transition:.2s}
-.card:hover{transform:scale(1.035)}
-.poster{height:195px;display:grid;place-items:center;font-size:50px;background:linear-gradient(145deg,#66141b,#252525)}
-.info{padding:12px}
-.info h3{margin:0 0 8px;font-size:16px}
-.muted{color:var(--muted);font-size:13px;line-height:1.6}
-.actions{display:flex;gap:6px;margin-top:10px}
-.actions button{flex:1;padding:8px}
-.panel{background:#202020;border-radius:7px;padding:18px;margin:16px 0}
+*{box-sizing:border-box}body{margin:0;background:#111;color:white;font-family:Arial,sans-serif}
+header{background:#191919;padding:18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.logo{font-size:25px;color:#e50914;font-weight:bold;margin-left:auto}
+button,input,select{padding:11px;border:0;border-radius:5px;font-size:14px}
+button{cursor:pointer;background:#333;color:white;margin:3px}
+button.red{background:#e50914}
+.hero{padding:45px 6%;background:linear-gradient(90deg,#111,#501015);min-height:230px}
+main{padding:20px 5%}.tools{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
+input,select{background:#292929;color:white}.tools input{flex:1;min-width:150px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.card{background:#242424;border-radius:7px;overflow:hidden}
+.poster{height:170px;display:grid;place-items:center;font-size:55px;background:linear-gradient(135deg,#66131a,#282828)}
+.info{padding:12px}.info h3{margin:4px 0 10px}.muted{color:#bbb;font-size:13px}
+section.panel{background:#222;padding:18px;margin-top:15px;border-radius:7px}
 .hidden{display:none!important}
-dialog{background:#222;color:white;border:1px solid #555;border-radius:9px;width:min(520px,94%);max-height:90vh;overflow:auto}
-dialog::backdrop{background:#000c}
-dialog input,dialog textarea,dialog select{width:100%;margin:6px 0}
+dialog{background:#222;color:white;border:1px solid #555;border-radius:8px;max-width:90%;width:420px}
+dialog input{display:block;width:100%;margin:10px 0}
 video{width:100%;background:#000}
-footer{text-align:center;padding:30px;color:#aaa}
-.badge{background:#333;padding:4px 7px;border-radius:4px;font-size:12px}
-@media(max-width:600px){header{gap:8px;padding:12px 4%}nav{order:3;flex-basis:100%;overflow:auto;flex-wrap:nowrap}.hero{min-height:300px;padding:35px 5%}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.poster{height:165px}}
 </style>
 </head>
 <body>
 <header>
- <div class="logo">HAIDER FLEX</div>
- <nav>
-  <button onclick="page('home')">الرئيسية</button>
-  <button onclick="page('فيلم')">أفلام</button>
-  <button onclick="page('مسلسل')">مسلسلات</button>
-  <button onclick="page('watchlist')">قائمتي ♥️</button>
-  <button onclick="page('history')">سجل المشاهدة</button>
- </nav>
- <button class="gray" onclick="authDialog.showModal()">تسجيل الدخول</button>
- <button class="gray" onclick="language()">عربي / EN</button>
+<div class="logo">HAIDER FLEX</div>
+<button onclick="showPage('home')">الرئيسية</button>
+<button onclick="showPage('فيلم')">أفلام</button>
+<button onclick="showPage('مسلسل')">مسلسلات</button>
+<button onclick="showPage('list')">قائمتي ♥️</button>
+<button onclick="login()">حسابي</button>
 </header>
 
-<section class="hero">
- <div class="hero-content">
-  <span style="color:#ff777d">HAIDER FLEX ORIGINAL</span>
-  <h1>ترفيه بلا حدود</h1>
-  <p>اكتشف الأفلام والمسلسلات والتصنيفات المفضلة لديك في واجهة سينمائية أنيقة.</p>
-  <button class="red" onclick="document.querySelector('main').scrollIntoView({behavior:'smooth'})">▶️ استكشف المحتوى</button>
-  <button class="gray" onclick="page('watchlist')">＋ قائمتي</button>
- </div>
-</section>
+<div class="hero">
+<h1>عالم الترفيه بين يديك</h1>
+<p>أفلام ومسلسلات في مكان واحد.</p>
+<button class="red" onclick="document.getElementById('catalog').scrollIntoView()">استكشف الآن</button>
+</div>
 
-<main>
- <div class="tools">
-  <input id="search" placeholder="ابحث عن فيلم أو مسلسل..." oninput="render()">
-  <select id="genre" onchange="render()">
-   <option value="">كل التصنيفات</option><option>أكشن</option><option>دراما</option><option>كوميديا</option><option>خيال علمي</option><option>وثائقي</option>
-  </select>
-  <select id="sort" onchange="render()">
-   <option value="new">الأحدث</option><option value="rating">الأعلى تقييمًا</option><option value="name">الاسم</option>
-  </select>
-  <button class="gray" onclick="profile()">ملفات المستخدمين</button>
-  <button class="gray" onclick="page('subscription')">الاشتراكات</button>
-  <button class="gray hidden" id="adminButton" onclick="page('admin')">لوحة المدير</button>
- </div>
- <h2 id="heading">اكتشف المحتوى</h2>
- <div id="cards" class="cards"></div>
- <section id="extra" class="panel hidden"></section>
+<main id="catalog">
+<div class="tools">
+<input id="search" placeholder="ابحث عن فيلم أو مسلسل..." oninput="render()">
+<select id="genre" onchange="render()">
+<option value="">كل التصنيفات</option>
+<option>أكشن</option><option>دراما</option><option>كوميديا</option><option>خيال علمي</option>
+</select>
+<button onclick="showPage('history')">سجل المشاهدة</button>
+<button onclick="showPage('subscription')">الاشتراكات</button>
+</div>
+<h2 id="heading">المحتوى</h2>
+<div id="cards" class="cards"></div>
+<div id="extra" class="panel hidden"></div>
 </main>
-<footer>HAIDER FLEX ©️ 2026</footer>
 
-<dialog id="authDialog">
- <h2>حسابك</h2>
- <input id="email" type="email" placeholder="البريد الإلكتروني" autocomplete="email">
- <input id="password" type="password" placeholder="كلمة المرور" autocomplete="current-password">
- <div class="tools">
-  <button class="red" onclick="signIn()">دخول</button>
-  <button class="gray" onclick="signUp()">إنشاء حساب</button>
-  <button class="gray" onclick="resetPassword()">نسيت كلمة المرور</button>
- </div>
- <p id="authMessage" class="muted"></p>
- <button class="gray" onclick="authDialog.close()">إغلاق</button>
+<dialog id="account">
+<h2>حساب تجريبي</h2>
+<input id="username" placeholder="اسم المستخدم">
+<p class="muted">هذا تسجيل تجريبي على هذا الجهاز، وليس حسابًا حقيقيًا.</p>
+<button class="red" onclick="saveUser()">دخول</button>
+<button onclick="document.getElementById('account').close()">إغلاق</button>
 </dialog>
 
-<dialog id="playerDialog">
- <h2 id="playerTitle">المشاهدة</h2>
- <video id="video" controls playsinline></video>
- <p id="playerDescription"></p>
- <p class="muted">تتوفر الترجمة والدبلجة حسب ملفات مصدر الفيديو المرخّص.</p>
- <button class="gray" onclick="nextEpisode()">الحلقة التالية ⏭</button>
- <button class="gray" onclick="playerDialog.close();video.pause()">إغلاق</button>
+<dialog id="watch">
+<h2 id="watchTitle">المشاهدة</h2>
+<video id="player" controls playsinline></video>
+<p id="videoMessage" class="muted"></p>
+<button onclick="nextMovie()">التالي ⏭</button>
+<button onclick="closePlayer()">إغلاق</button>
 </dialog>
 
-<dialog id="reviewDialog">
- <h2>قيّم المحتوى</h2>
- <select id="stars"><option value="5">★★★★★</option><option value="4">★★★★</option><option value="3">★★★</option><option value="2">★★</option><option value="1">★</option></select>
- <textarea id="reviewText" placeholder="اكتب مراجعتك"></textarea>
- <button class="red" onclick="saveReview()">حفظ التقييم</button>
- <button class="gray" onclick="reviewDialog.close()">إلغاء</button>
-</dialog>
-
-<script type="module">
-import {createClient} from 'https://esm.sh/@supabase/supabase-js@2';
-
-/* أدخل رابط Supabase ومفتاح publishable العام فقط */
-const SUPABASE_URL='YOUR_SUPABASE_URL';
-const SUPABASE_KEY='YOUR_SUPABASE_PUBLISHABLE_KEY';
-const sb=SUPABASE_URL.startsWith('https://')&&!SUPABASE_URL.includes('YOUR_')&&!SUPABASE_KEY.includes('YOUR_')
- ?createClient(SUPABASE_URL,SUPABASE_KEY):null;
-
-const content=[
-{id:'m1',title:'رحلة المجهول',type:'فيلم',genre:'أكشن',year:2025,rating:4.6,age:'13+',emoji:'🚀',description:'مغامرة سينمائية مشوّقة.',url:''},
-{id:'m2',title:'مدينة الظلال',type:'مسلسل',genre:'دراما',year:2025,rating:4.8,age:'16+',emoji:'🌆',description:'أسرار تتكشف في المدينة.',url:''},
-{id:'m3',title:'ما وراء النجوم',type:'فيلم',genre:'خيال علمي',year:2024,rating:4.4,age:'7+',emoji:'🌌',description:'رحلة إلى عوالم بعيدة.',url:''},
-{id:'m4',title:'يوميات مضحكة',type:'مسلسل',genre:'كوميديا',year:2024,rating:4.1,age:'عام',emoji:'🎭',description:'مواقف يومية ممتعة.',url:''},
-{id:'m5',title:'كوكبنا الجميل',type:'فيلم',genre:'وثائقي',year:2025,rating:4.9,age:'عام',emoji:'🌍',description:'اكتشف روائع الطبيعة.',url:''}
+<script>
+const movies=[
+{id:1,title:"رحلة المجهول",type:"فيلم",genre:"أكشن",year:2025,emoji:"🚀",desc:"مغامرة مشوقة"},
+{id:2,title:"مدينة الظلال",type:"مسلسل",genre:"دراما",year:2025,emoji:"🌆",desc:"أسرار المدينة"},
+{id:3,title:"ما وراء النجوم",type:"فيلم",genre:"خيال علمي",year:2024,emoji:"🌌",desc:"رحلة إلى الفضاء"},
+{id:4,title:"يوميات مضحكة",type:"مسلسل",genre:"كوميديا",year:2024,emoji:"🎭",desc:"مواقف مضحكة"},
+{id:5,title:"كوكبنا الجميل",type:"فيلم",genre:"وثائقي",year:2025,emoji:"🌍",desc:"روائع الطبيعة"}
 ];
-
-let user=null,activeItem=null,activePage='home',english=false;
+let currentPage="home",currentMovie=null;
 const $=id=>document.getElementById(id);
-const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const key=name=>`${name}_${user?.id||'guest'}`;
-const localRead=name=>{try{return JSON.parse(localStorage.getItem(key(name))||'[]')}catch{return []}};
-const localWrite=(name,val)=>localStorage.setItem(key(name),JSON.stringify(val));
+const read=k=>{try{return JSON.parse(localStorage.getItem("hf_"+k)||"[]")}catch(e){return []}};
+const write=(k,v)=>localStorage.setItem("hf_"+k,JSON.stringify(v));
 
-function notice(s){alert(s)}
-window.signIn=async()=>{
- if(!sb)return $('authMessage').textContent='أضف إعدادات Supabase في أعلى السكربت.';
- const {data,error}=await sb.auth.signInWithPassword({email:$('email').value,password:$('password').value});
- if(error)return $('authMessage').textContent=error.message;
- user=data.user;await loggedIn();
-};
-window.signUp=async()=>{
- if(!sb)return $('authMessage').textContent='أضف إعدادات Supabase أولًا.';
- const {data,error}=await sb.auth.signUp({email:$('email').value,password:$('password').value});
- if(error)return $('authMessage').textContent=error.message;
- $('authMessage').textContent='تحقق من بريدك الإلكتروني إذا طُلب منك ذلك.';
- if(data.session){user=data.user;await loggedIn()}
-};
-window.resetPassword=async()=>{
- if(!sb)return $('authMessage').textContent='أضف إعدادات Supabase أولًا.';
- const {error}=await sb.auth.resetPasswordForEmail($('email').value,{redirectTo:location.href});
- $('authMessage').textContent=error?error.message:'إذا كان البريد صالحًا، ستصلك رسالة الاستعادة.';
-};
-async function loggedIn(){
- $('authDialog').close();await checkAdmin();render();
-}
-async function checkAdmin(){
- $('adminButton').classList.add('hidden');
- if(!user||!sb)return;
- const {data}=await sb.from('user_roles').select('role').eq('user_id',user.id).eq('role','admin').maybeSingle();
- if(data)$('adminButton').classList.remove('hidden');
-}
-if(sb){
- const {data}=await sb.auth.getSession();user=data.session?.user||null;
- sb.auth.onAuthStateChange((_event,session)=>{
-  user=session?.user||null;
-  if(user)checkAdmin();else $('adminButton').classList.add('hidden');
- });
-}
-
-window.render=render;
 function render(){
- let items=content.filter(x=>(!$('search').value||x.title.toLowerCase().includes($('search').value.toLowerCase()))&&(!$('genre').value||x.genre===$('genre').value));
- if(activePage==='فيلم'||activePage==='مسلسل')items=items.filter(x=>x.type===activePage);
- if($('sort').value==='rating')items.sort((a,b)=>b.rating-a.rating);
- if($('sort').value==='name')items.sort((a,b)=>a.title.localeCompare(b.title));
- window.visibleItems=items;
- $('cards').innerHTML=items.map(x=>`
- <article class="card">
-  <div class="poster">${x.emoji}</div><div class="info">
-   <h3>${safe(x.title)}</h3>
-   <span class="badge">${x.type}</span> <span class="badge">${x.age}</span>
-   <p class="muted">${x.year} • ⭐ ${x.rating}</p><p class="muted">${safe(x.description)}</p>
-   <div class="actions"><button class="red" onclick="play('${x.id}')">▶️ شاهد</button><button class="gray" onclick="favorite('${x.id}')">＋</button></div>
-   <div class="actions"><button class="gray" onclick="review('${x.id}')">⭐ قيّم</button><button class="gray" onclick="later('${x.id}')">لاحقًا</button></div>
-  </div>
- </article>`).join('')||'<p>لا توجد نتائج.</p>';
+ let arr=movies.filter(m=>
+ (! $("search").value||m.title.includes($("search").value))&&
+ (!$("genre").value||m.genre===$("genre").value)&&
+ (currentPage==="home"||currentPage==="history"||currentPage==="list"||m.type===currentPage)
+ );
+ if(currentPage==="history")arr=movies.filter(m=>read("history").includes(m.id));
+ if(currentPage==="list")arr=movies.filter(m=>read("list").includes(m.id));
+ $("heading").textContent={home:"اكتشف المحتوى",فيلم:"الأفلام",مسلسل:"المسلسلات",history:"سجل المشاهدة",list:"قائمتي"}[currentPage]||"المحتوى";
+ $("cards").innerHTML=arr.map(m=>`
+ <div class="card">
+ <div class="poster">${m.emoji}</div>
+ <div class="info"><h3>${m.title}</h3>
+ <p class="muted">${m.type} • ${m.year}</p>
+ <p class="muted">${m.desc}</p>
+ <button class="red" onclick="playMovie(${m.id})">▶️ مشاهدة</button>
+ <button onclick="toggleList(${m.id})">♥️ حفظ</button>
+ </div></div>`).join("")||"<p>لا توجد نتائج.</p>";
 }
-window.page=async p=>{
- activePage=p;$('extra').classList.add('hidden');$('cards').classList.remove('hidden');
- $('heading').textContent=p==='home'?'اكتشف المحتوى':p;
- if(p==='watchlist'||p==='history'){
-  let list=localRead(p);
-  if(user&&sb){
-   const table=p==='watchlist'?'watchlist':'watch_history';
-   const {data,error}=await sb.from(table).select('content_id').eq('user_id',user.id);
-   if(error){notice(error.message);return}
-   list=(data||[]).map(r=>r.content_id);
-  }
-  const items=content.filter(x=>list.includes(x.id));
-  $('cards').innerHTML=items.map(x=>`<article class="card"><div class="poster">${x.emoji}</div><div class="info"><h3>${safe(x.title)}</h3><p>${x.type}</p></div></article>`).join('')||'<p>لا يوجد محتوى هنا بعد.</p>';
-  $('heading').textContent=p==='watchlist'?'قائمة المشاهدة لاحقًا':'سجل المشاهدة';
- }else if(p==='subscription')subscription();
- else if(p==='admin')await admin();
- else render();
-};
-window.favorite=async id=>changeList('watchlist',id);
-window.later=async id=>changeList('watchlist',id);
-async function changeList(table,id){
- if(user&&sb){
-  const {data,error}=await sb.from(table).select('id').eq('user_id',user.id).eq('content_id',id).maybeSingle();
-  if(error)return notice(error.message);
-  const result=data?await sb.from(table).delete().eq('user_id',user.id).eq('content_id',id)
-   :await sb.from(table).insert({user_id:user.id,content_id:id});
-  if(result.error)notice(result.error.message);
- }else{
-  let list=localRead(table);list=list.includes(id)?list.filter(x=>x!==id):[...list,id];localWrite(table,list);
-  notice('حُفظت القائمة على هذا الجهاز فقط. سجّل الدخول لمزامنتها.');
- }
- render();
+function showPage(p){
+ currentPage=p;$("extra").classList.add("hidden");$("cards").classList.remove("hidden");
+ if(p==="subscription"){
+  $("cards").classList.add("hidden");$("extra").classList.remove("hidden");
+  $("heading").textContent="الاشتراكات";
+  $("extra").innerHTML="<h3>الباقة المجانية</h3><p>تصفح المحتوى التجريبي.</p><p class='muted'>الدفع وتجديد الاشتراكات غير مفعّلين في هذا الإصدار.</p>";
+ }else render();
 }
-window.play=async id=>{
- const x=content.find(c=>c.id===id);if(!x)return;
- if(!x.url)return notice('أضف رابط فيديو مرخّص لهذا المحتوى في مصفوفة content.');
- activeItem=x;$('playerTitle').textContent=x.title;$('playerDescription').textContent=x.description;
- $('video').src=x.url;$('playerDialog').showModal();$('video').play().catch(()=>{});
- let history=localRead('history');if(!history.includes(id))history.unshift(id);localWrite('history',history);
- if(user&&sb)await sb.from('watch_history').upsert({user_id:user.id,content_id:id,position_seconds:0,updated_at:new Date().toISOString()},{onConflict:'user_id,content_id'});
-};
-window.nextEpisode=()=>{
- const list=window.visibleItems||content;const i=list.findIndex(x=>x.id===activeItem?.id);
- if(i>=0&&list[i+1])play(list[i+1].id);else notice('لا توجد حلقة تالية.');
-};
-window.review=id=>{
- activeItem=content.find(x=>x.id===id);$('reviewDialog').showModal();
-};
-window.saveReview=async()=>{
- if(!user||!sb){notice('سجّل الدخول لحفظ تقييمك.');return}
- const {error}=await sb.from('reviews').upsert({
-  user_id:user.id,content_id:activeItem.id,rating:Number($('stars').value),review:$('reviewText').value
- },{onConflict:'user_id,content_id'});
- if(error)notice(error.message);else{$('reviewDialog').close();notice('تم حفظ التقييم.')}
-};
-window.profile=async()=>{
- if(!user){$('authDialog').showModal();return}
- const name=prompt('اسم الملف الشخصي:');if(!name)return;
- if(!sb)return notice('إعداد Supabase غير مكتمل.');
- const pin=prompt('رمز PIN اختياري لملف الأطفال:');
- if(pin&&!/^\d{4}$/.test(pin))return notice('استخدم 4 أرقام للرمز.');
- const {error}=await sb.from('profiles').insert({user_id:user.id,name:name.slice(0,40),is_kids:!!pin,pin_hash:null});
- if(error)notice(error.message);
- else notice('تم إنشاء الملف. إعداد PIN الآمن يحتاج وظيفة خلفية للتحقق منه.');
-};
-function subscription(){
- $('cards').classList.add('hidden');$('extra').classList.remove('hidden');
- $('extra').innerHTML=`<h2>الباقات</h2><p class="muted">هذه عروض تجريبية وليست عملية دفع حقيقية.</p><div class="cards">
- ${[['مجانية','0'],['مميزة','2.99'],['عائلية','4.99']].map(x=>`<article class="card"><div class="info"><h3>${x[0]}</h3><h2>${x[1]} د.ب / شهر</h2><button class="red" onclick="notice('اربط بوابة دفع موثوقة وخادمًا للتحقق من الاشتراك.')">اختيار الباقة</button></div></article>`).join('')}</div><h3>الفواتير وتجديد الاشتراك</h3><p class="muted">تحتاج إلى ربط مزود دفع وخادم موثوق.</p>`;
+function toggleList(id){
+ let a=read("list");
+ write("list",a.includes(id)?a.filter(x=>x!==id):[...a,id]);
+ alert("تم تحديث قائمتك على هذا الجهاز.");render();
 }
-async function admin(){
- $('cards').classList.add('hidden');$('extra').classList.remove('hidden');
- if(!user||!sb){$('extra').textContent='سجّل الدخول بحساب مدير.';return}
- const {data,error}=await sb.from('user_roles').select('role').eq('user_id',user.id).eq('role','admin').maybeSingle();
- if(error||!data){$('extra').textContent='لا تملك صلاحية المدير.';return}
- const {count}=await sb.from('watch_history').select('*',{count:'exact',head:true});
- $('extra').innerHTML=`<h2>لوحة المدير</h2><p>سجلات المشاهدة: ${count||0}</p><p class="muted">إدارة المحتوى والاشتراكات والإحصائيات الكاملة تتطلب جداول وصلاحيات وخدمات خلفية إضافية.</p>`;
+function playMovie(id){
+ currentMovie=movies.find(m=>m.id===id);
+ $("watchTitle").textContent=currentMovie.title;
+ $("player").removeAttribute("src");
+ $("videoMessage").textContent="هذا المحتوى تجريبي. أضف رابط فيديو تملك حق عرضه لتشغيله.";
+ $("watch").showModal();
+ let a=read("history");write("history",[id,...a.filter(x=>x!==id)]);
 }
-window.language=()=>{
- english=!english;document.documentElement.lang=english?'en':'ar';document.documentElement.dir=english?'ltr':'rtl';
- notice(english?'تم تغيير اتجاه الصفحة. يلزم إضافة الترجمات الإنجليزية لكل النصوص.':'تمت العودة إلى العربية.');
-};
+function nextMovie(){
+ let i=movies.findIndex(m=>m.id===currentMovie?.id);
+ if(i>=0&&i<movies.length-1)playMovie(movies[i+1].id);
+ else alert("لا يوجد محتوى تالٍ.");
+}
+function closePlayer(){$("player").pause();$("watch").close()}
+function login(){$("account").showModal()}
+function saveUser(){
+ let n=$("username").value.trim();
+ if(!n)return alert("اكتب اسم المستخدم.");
+ localStorage.setItem("hf_username",n);
+ $("account").close();alert("أهلًا "+n); 
+}
 render();
 </script>
 </body>
